@@ -47,7 +47,7 @@
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ url("$role->name/$user->username/edit") }}"><i
                         class="bx bx-edit-alt me-1"></i> Edit</a>
-                    <button class="dropdown-item" wire:click="deleteUser({{ $user->id }})">
+                    <button class="dropdown-item" wire:click="deleteConfirm({{ $user->id }})">
                       <i class="bx bx-trash me-1"></i>
                       Delete</button>
                   </div>
@@ -59,7 +59,8 @@
       </table>
 
       <div class="px-4 py-1">
-        {{ $users->onEachSide(0.5)->links('vendor.pagination.bootstrap-5') }}
+        {{ $users->onEachSide(0.5)->withQueryString()->links() }}
+        {{-- {{ $users->onEachSide(0.5)->withQueryString()->links('vendor.pagination.bootstrap-5') }} --}}
       </div>
     </div>
   </div>
