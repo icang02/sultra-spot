@@ -111,36 +111,6 @@
 
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-
-  <script>
-    window.addEventListener('swal:modal', event => {
-      Swal.fire({
-        position: 'center',
-        icon: event.detail.type,
-        title: event.detail.title,
-        text: event.detail.text,
-        showConfirmButton: true,
-        timer: false,
-      })
-    });
-
-    window.addEventListener('swal:confirm', event => {
-      Swal.fire({
-        title: event.detail.title,
-        text: event.detail.text,
-        icon: event.detail.type,
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((willDelete) => {
-        if (willDelete.isConfirmed) {
-          window.livewire.emit('delete', event.detail.id);
-        }
-      })
-    });
-  </script>
 </body>
 
 </html>

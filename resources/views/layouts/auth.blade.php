@@ -43,21 +43,9 @@
   <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="{{ asset('sneat/js/config.js') }}"></script>
-  <style>
-    .color-primary {
-      color: #4298F3;
-    }
-
-    .color-primary-bg {
-      background-color: #4298F3;
-    }
-
-    .color-primary-outline {
-      border-color: #4298F3;
-    }
-  </style>
 
   @livewireStyles
+  @vite(['resources/css/app.css', 'resources/js/app.js'], 'build')
 </head>
 
 <body>
