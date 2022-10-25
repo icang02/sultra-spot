@@ -47,9 +47,12 @@
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ url("$role->name/$user->username/edit") }}"><i
                         class="bx bx-edit-alt me-1"></i> Edit</a>
-                    <button class="dropdown-item" wire:click="deleteConfirm({{ $user->id }})">
-                      <i class="bx bx-trash me-1"></i>
-                      Delete</button>
+                    @if (auth()->user()->role_id !== $user->role_id)
+                      <button class="dropdown-item" wire:click="deleteConfirm({{ $user->id }})">
+                        <i class="bx bx-trash me-1"></i>
+                        Delete
+                      </button>
+                    @endif
                   </div>
                 </div>
               </td>

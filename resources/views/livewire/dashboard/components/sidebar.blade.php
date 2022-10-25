@@ -31,37 +31,62 @@
       </a>
     </li>
 
-    <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">User Account</span>
-    </li>
+    @can('admin')
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">User Account</span>
+      </li>
+      @php
+        $icon = ['<i class="menu-icon tf-icons bx bx-dock-top"></i>', '<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>', '<i class="menu-icon tf-icons bx bx-cube-alt"></i>'];
+      @endphp
+      @foreach ($roles as $key => $role)
+        <li class="menu-item {{ request()->is($role->name . '*') ? 'active' : '' }}">
+          <a href="{{ url($role->name) }}" class="menu-link {{ request()->is($role->name) ? 'color-primary' : '' }}">
+            {!! $icon[$key] !!}
+            <div data-i18n="Analytics"> {{ str()->title($role->name) }} </div>
+          </a>
+        </li>
+      @endforeach
+    @endcan
 
-    @php
-      $icon = ['<i class="menu-icon tf-icons bx bx-dock-top"></i>', '<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>', '<i class="menu-icon tf-icons bx bx-cube-alt"></i>'];
-    @endphp
-    @foreach ($roles as $key => $role)
-      <li class="menu-item {{ request()->is($role->name . '*') ? 'active' : '' }}">
-        <a href="{{ url($role->name) }}" class="menu-link {{ request()->is($role->name) ? 'color-primary' : '' }}">
-          {!! $icon[$key] !!}
-          <div data-i18n="Analytics"> {{ str()->title($role->name) }} </div>
+    @if (Gate::check('pengunjung') || Gate::check('pengelola'))
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">Wisata & Event</span>
+      </li>
+      <li class="menu-item {{ request()->is('wisata*') ? 'active' : '' }}">
+        <a href="{{ route('wisata') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-collection"></i>
+          <div data-i18n="Analytics"> {{ Auth()->user()->role_id == 2 ? 'Wisata' : 'My Wisata' }} </div>
         </a>
       </li>
-    @endforeach
+      <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
+        <a href="index.html" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-crown"></i>
+          <div data-i18n="Analytics"> {{ Auth()->user()->role_id == 2 ? 'Event' : 'My Event' }} </div>
+        </a>
+      </li>
+    @endif
 
-    <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">Wisata % Event</span>
-    </li>
-    <li class="menu-item {{ Route::has('p') ? 'active' : '' }}">
-      <a href="index.html" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-collection"></i>
-        <div data-i18n="Analytics">Wisata</div>
-      </a>
-    </li>
-    <li class="menu-item {{ Route::has('p') ? 'active' : '' }}">
-      <a href="index.html" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-crown"></i>
-        <div data-i18n="Analytics">Event</div>
-      </a>
-    </li>
+    @if (Gate::check('pengunjung') || Gate::check('pengelola'))
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">Transaction</span>
+      </li>
+      @can('pengunjung')
+        <li class="menu-item {{ Route::has('p') ? 'active' : '' }}">
+          <a href="index.html" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-cart"></i>
+            <div data-i18n="Analytics">Cart</div>
+          </a>
+        </li>
+      @endcan
+      <li class="menu-item {{ Route::has('p') ? 'active' : '' }}">
+        <a href="index.html" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-detail"></i>
+          <div data-i18n="Analytics"> {{ Auth()->user()->role_id == 2 ? 'Order' : 'My Order' }} </div>
+        </a>
+      </li>
+    @endif
+
+
 
     <li class="menu-header small text-uppercase"></li>
   </ul>

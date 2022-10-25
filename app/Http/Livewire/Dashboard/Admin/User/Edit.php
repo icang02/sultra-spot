@@ -39,12 +39,27 @@ class Edit extends Component
         $this->validate($rules);
 
         $user->update([
-            'name' => $this->name,
+            'name' => str()->title($this->name),
             'email' => $this->email,
-            'role_id' => (int) ($this->roleId),
+            'role_id' => intval($this->roleId),
         ]);
 
-        return redirect($this->role->name)->with('success', 'User has been updated.');
+        if (intval($this->roleId) == 1) {
+            $toPage = 'admin';
+        } else if (intval($this->roleId) == 2) {
+            $toPage = 'pengunjung';
+        } else if (intval($this->roleId) == 3) {
+            $toPage = 'pengelola';
+        }
+
+        if ($user) {
+            $this->dispatchBrowserEvent('swal:toast', [
+                'type' => 'success',
+                'title' => 'Your changes this profile!',
+            ]);
+        }
+
+        // return redirect()->to("$toPage/$user->username/edit");
     }
 
     public function formReset($userId)

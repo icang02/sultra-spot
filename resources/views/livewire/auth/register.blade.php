@@ -19,10 +19,19 @@
 
           <form class="mb-3" wire:submit.prevent="registerSend">
             <div class="mb-3">
-              <label for="username" class="form-label">Full Name</label>
+              <label for="name" class="form-label">Full Name</label>
               <input wire:model="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                id="username" placeholder="Enter your username" autofocus />
+                id="name" placeholder="Enter your name" />
               @error('name')
+                <div class="invalid-feedback"> {{ $message }} </div>
+              @enderror
+            </div>
+
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input wire:model="username" type="text" class="form-control @error('username') is-invalid @enderror"
+                id="username" placeholder="Enter your username" />
+              @error('username')
                 <div class="invalid-feedback"> {{ $message }} </div>
               @enderror
             </div>
@@ -32,6 +41,21 @@
               <input wire:model="email" type="text" class="form-control @error('email') is-invalid @enderror"
                 id="email" placeholder="Enter your email" />
               @error('email')
+                <div class="invalid-feedback"> {{ $message }} </div>
+              @enderror
+            </div>
+
+            <div class="mb-3">
+              <label for="role_id" class="form-label"> User Type </label>
+              <select wire:model="roleId" class="form-select @error('roleId') is-invalid @enderror" id="role_id">
+                <option> Select.. </option>
+                @foreach ($roles as $role)
+                  <option value="{{ $role->id }}">
+                    {{ Str::title($role->name) }}
+                  </option>
+                @endforeach
+              </select>
+              @error('roleId')
                 <div class="invalid-feedback"> {{ $message }} </div>
               @enderror
             </div>

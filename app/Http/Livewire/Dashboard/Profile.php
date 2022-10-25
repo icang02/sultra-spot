@@ -8,6 +8,9 @@ use Livewire\Component;
 class Profile extends Component
 {
     public $userId, $name, $email, $username, $userType;
+    public $usernameDelete, $checkboxDeactive;
+
+    protected $listeners = ['delete'];
 
     public function mount()
     {
@@ -33,7 +36,12 @@ class Profile extends Component
             'email' => $this->email,
         ]);
 
-        return redirect()->route('profile')->with('success', 'Updated account profile success.');
+        if ($user) {
+            $this->dispatchBrowserEvent('swal:toast', [
+                'type' => 'success',
+                'title' => 'Profile updated!',
+            ]);
+        }
     }
 
     public function resetForm()
@@ -42,6 +50,27 @@ class Profile extends Component
 
         $this->name = $user->name;
         $this->email = $user->email;
+    }
+
+    public function dactiveAccount($userId)
+    {
+        $this->validate([
+            'usernameDelete' => 'in:' . auth()->user()->username,
+            'checkboxDeactive' => 'required',
+        ]);
+
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'title' => 'Are you sure?',
+            'text' => 'Account cannot be returned.',
+            'id' => $userId,
+        ]);
+    }
+
+    public function delete($userId)
+    {
+        $user = User::find($userId)->delete();
+        return redirect()->route('login');
     }
 
     public function render()

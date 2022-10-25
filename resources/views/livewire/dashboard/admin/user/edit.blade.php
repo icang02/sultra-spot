@@ -6,6 +6,7 @@
       <div class="card mb-4">
         <h5 class="card-header">Data Profil</h5>
         <div class="card-body">
+
           <form wire:submit.prevent="UpdateUser({{ $user->id }})">
             <div class="mb-3">
               <label for="name" class="form-label"> Full Name </label>
@@ -38,6 +39,7 @@
                 <div class="invalid-feedback"> {{ $message }} </div>
               @enderror
             </div>
+
             <div class="mt-4">
               <button type="submit" class="btn btn-primary"> Save </button>
               <button wire:click="formReset({{ $user->id }})" type="reset" class="btn btn-danger"> Reset </button>

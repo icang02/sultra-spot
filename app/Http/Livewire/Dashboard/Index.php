@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component

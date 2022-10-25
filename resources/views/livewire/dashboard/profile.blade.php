@@ -83,24 +83,67 @@
         </div>
         <!-- /Account -->
       </div>
-      <div class="card">
-        <h5 class="card-header">Delete Account</h5>
-        <div class="card-body">
-          <div class="mb-3 col-12 mb-0">
-            <div class="alert alert-warning">
-              <h6 class="alert-heading fw-bold mb-1">Are you sure you want to delete your account?</h6>
-              <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
+
+      @if (!Gate::check('admin'))
+        <div class="card">
+          <h5 class="card-header">Delete Account</h5>
+          <div class="card-body">
+            <div class="mb-3 col-12 mb-0">
+              <div class="alert alert-warning">
+                <h6 class="alert-heading fw-bold mb-1">Are you sure you want to delete your account?</h6>
+                <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
+              </div>
+            </div>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal" data-bs-whatever="@mdo">
+              Deactivate Account
+            </button>
+          </div>
+        </div>
+      @endif
+
+    </div>
+  </div>
+
+  {{-- Modal Start --}}
+  <div wire:ignore.self class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <form wire:submit.prevent="dactiveAccount({{ Auth::user()->id }})">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <div class="mb-2">
+                <span class="text-muted">Enter your username : </span>
+                {{ Auth::user()->username }}</label>
+              </div>
+              <input wire:model="usernameDelete" type="text"
+                class="form-control @error('usernameDelete') is-invalid @enderror" id="username-delete">
+              @error('usernameDelete')
+                <div class="invalid-feedback"> {{ $message }} </div>
+              @enderror
+            </div>
+
+            <div class="form-check">
+              <input wire:model="checkboxDeactive"
+                class="form-check-input @error('checkboxDeactive') is-invalid @enderror" type="checkbox"
+                id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                I confirm my account deactivation
+              </label>
             </div>
           </div>
-          <form id="formAccountDeactivation" onsubmit="return false">
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation" />
-              <label class="form-check-label" for="accountActivation">I confirm my account deactivation</label>
-            </div>
-            <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
-          </form>
-        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+  {{-- Modal End --}}
 </div>
