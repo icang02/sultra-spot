@@ -1,0 +1,15 @@
+.color-primary {
+  color: #4298F3 !important;
+}
+
+.color-primary-bg {
+  background-color: #4298F3 !important;
+}
+
+.color-primary-outline {
+  border-color: #4298F3;
+}
+
+.swal2-container {
+  z-index: 2000 !important;
+}
