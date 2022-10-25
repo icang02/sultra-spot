@@ -10,19 +10,45 @@
             alt="Image">
           <div class="mt-3"> {{ $wisata->description }} </div>
           <hr class="my-4">
-          <form>
+
+          <form wire:submit.prevent="submitToOrder({{ $wisata->id }})">
             <div class="mb-3">
-              <div class="form-label">Jumlah Tiket</div><input min="1" max="{{ $wisata->ticket_stock }}"
-                type="number" class="form-control" name="qty" id="quantity" required="">
+              <div class="form-label">Enter order quantity</div>
+              @if ($wisata->ticket_stock > 0)
+                <input wire:model="qty" min="1" type="number" class="form-control" id="quantity">
+              @else
+                <input type="number" class="form-control" id="quantity" readonly>
+              @endif
             </div>
-            <div class="form-check"><input class="form-check-input" type="checkbox" name="rental" id="rental"><label
-                class="form-check-label" for="rental"> Tambah <span class="fw-bold">Rp 50.000</span> untuk sewa kamera
-              </label></div>
+
+            @if ($wisata->rental)
+              <div class="form-check">
+                <input wire:model="chkboxSewaKamera" class="form-check-input" type="checkbox" id="rental">
+                <label class="form-check-label" for="rental"> Tambah <span class="fw-bold">
+                    Rp 50.000</span> untuk sewa kamera kamera
+                </label>
+              </div>
+            @endif
+
             <div class="mt-4">
-              <div as="button" class="btn btn-info me-1"><i class="bx bx-right-arrow me-1"></i> Pesan </div><button
-                class="btn btn-warning"><i class="bx bxs-cart-add me-1"></i> Simpan </button>
+              @if ($wisata->ticket_stock > 0)
+                <button type="submit" class="btn btn-info me-1">
+                  <i class="bx bx-right-arrow me-1"></i> Order
+                </button>
+                <div class="btn btn-warning" wire:click="addToCart({{ $wisata->id }})">
+                  <i class="bx bxs-cart-add me-1"></i> Save
+                </div>
+              @else
+                <button class="btn btn-info me-1" disabled>
+                  <i class="bx bx-right-arrow me-1"></i> Order
+                </button>
+                <button class="btn btn-warning" disabled>
+                  <i class="bx bxs-cart-add me-1"></i> Save
+                </button>
+              @endif
             </div>
           </form>
+
         </div>
       </div>
     </div>
@@ -56,7 +82,12 @@
           <div class="row">
             <div class="col-md-1 col-1"><i class="bx bxs-plane-take-off"></i></div>
             <div class="col-md-11 col-11">
-              <div class="fw-bold">STOK</div><span>60</span>
+              <div class="fw-bold">STOK</div>
+              @if ($wisata->ticket_stock > 0)
+                <span> {{ $wisata->ticket_stock }} </span>
+              @else
+                <span class="text-danger"> Kosong </span>
+              @endif
             </div>
           </div>
         </div>
