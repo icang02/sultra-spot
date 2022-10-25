@@ -7,11 +7,8 @@ use App\Http\Livewire\Dashboard\Admin\User\Edit as UserEdit;
 use App\Http\Livewire\Dashboard\Admin\User\Index as UserIndex;
 use App\Http\Livewire\Dashboard\Index;
 use App\Http\Livewire\Dashboard\Profile;
-use App\Http\Livewire\SweetAlert;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('alert', SweetAlert::class);
 
 Route::get('/', Index::class)->name('dashboard')->middleware('auth');
 
