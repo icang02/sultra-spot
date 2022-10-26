@@ -8,7 +8,6 @@ use Livewire\Component;
 class Cart extends Component
 {
     public $cartId, $qty, $chkboxKamera, $hrgSewaKamera;
-    public $checked = 'checked';
 
     public function editCart($qty)
     {

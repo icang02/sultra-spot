@@ -35,9 +35,10 @@ window.addEventListener('swal:toast', event => {
     timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      // toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('click', Swal.close)
       // toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
+
   })
 
   Toast.fire({

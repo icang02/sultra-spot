@@ -49,7 +49,13 @@
   <script src="{{ asset('sneat/js/config.js') }}"></script>
 
   @livewireStyles
-  @vite(['resources/css/app.css', 'resources/js/app.js'], 'build')
+  @if (env('APP_ENV') == 'local')
+    @vite(['resources/css/app.css', 'resources/js/app.js'], 'build')
+  @endif
+  @if (env('APP_ENV') == 'production')
+    <link rel="stylesheet" href="{{ asset('build/assets/app.5ddb635f.css') }}" />
+    <script src="{{ asset('build/assets/app.7411f793.js') }}"></script>
+  @endif
 </head>
 
 <body>
