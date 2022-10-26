@@ -2,14 +2,14 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\Cart;
 use App\Models\TourPlace;
-use Illuminate\Cache\RedisStore;
 use Livewire\Component;
 
 class WisataDetail extends Component
 {
     public $wisata;
-    public $qty, $chkboxSewaKamera, $hrgSewaKamera;
+    public $qty, $chkboxSewaKamera, $hrgSewaKamera, $paymentTotal;
 
     public function mount($id)
     {
@@ -66,7 +66,62 @@ class WisataDetail extends Component
         }
         $this->validate();
 
-        return redirect('dashboard');
+        $wisata = TourPlace::find($wisataId);
+        $carts = Cart::all();
+
+        if ($wisata->rental) {
+            if ($this->chkboxSewaKamera == null || $this->chkboxSewaKamera == false) {
+                $this->hrgSewaKamera = 0;
+            } else {
+                $this->hrgSewaKamera = 50000;
+            }
+        }
+        $this->paymentTotal = ($this->qty * $wisata->price) + $this->hrgSewaKamera;
+
+        if ($carts->count() === 0) {
+            $cart = Cart::create([
+                'user_id' => auth()->user()->id,
+                'tour_place_id' => $wisata->id,
+                'quantity' => $this->qty,
+                'total_payment' => $this->paymentTotal,
+                'price_kamera' => $this->hrgSewaKamera,
+            ]);
+            if ($cart) {
+                $this->dispatchBrowserEvent('swal:toast', [
+                    'type' => 'success',
+                    'title' => 'Item added successfully!',
+                ]);
+            }
+        } else {
+            // dd($carts->where('tour_place_id', $wisataId)->first());
+            $cart = $carts->where('tour_place_id', $wisataId)->first();
+            if ($cart) {
+                $cart->update([
+                    'quantity' => $this->qty,
+                    'total_payment' => $this->paymentTotal,
+                    'price_kamera' => $this->hrgSewaKamera,
+                ]);
+
+                return $this->dispatchBrowserEvent('swal:toast', [
+                    'type' => 'success',
+                    'title' => 'Item in cart updated!',
+                ]);
+            }
+
+            $cart = Cart::create([
+                'user_id' => auth()->user()->id,
+                'tour_place_id' => $wisata->id,
+                'quantity' => $this->qty,
+                'total_payment' => $this->paymentTotal,
+                'price_kamera' => $this->hrgSewaKamera,
+            ]);
+            if ($cart) {
+                $this->dispatchBrowserEvent('swal:toast', [
+                    'type' => 'success',
+                    'title' => 'Item added successfully!',
+                ]);
+            }
+        }
     }
 
     public function render()

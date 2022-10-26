@@ -35,16 +35,16 @@
                 <button type="submit" class="btn btn-info me-1">
                   <i class="bx bx-right-arrow me-1"></i> Order
                 </button>
-                <div class="btn btn-warning" wire:click="addToCart({{ $wisata->id }})">
+                <div class="btn btn-warning" wire:click="addToCart({{ $wisata->id }})" wire:loading.class="disabled">
                   <i class="bx bxs-cart-add me-1"></i> Save
                 </div>
               @else
                 <button class="btn btn-info me-1" disabled>
                   <i class="bx bx-right-arrow me-1"></i> Order
                 </button>
-                <button class="btn btn-warning" disabled>
+                <div class="btn btn-warning" disabled>
                   <i class="bx bxs-cart-add me-1"></i> Save
-                </button>
+                </div>
               @endif
             </div>
           </form>

@@ -71,8 +71,8 @@
         <span class="menu-header-text">Transaction</span>
       </li>
       @can('pengunjung')
-        <li class="menu-item {{ Route::has('p') ? 'active' : '' }}">
-          <a href="index.html" class="menu-link">
+        <li class="menu-item {{ request()->is('cart') ? 'active' : '' }}">
+          <a href="{{ route('cart') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-cart"></i>
             <div data-i18n="Analytics">Cart</div>
           </a>
