@@ -33,7 +33,7 @@ class Login extends Component
     public function render()
     {
         return view('livewire.auth.login')
-            ->extends('layouts.auth', ['title' => 'Login'])
+            ->extends('layouts.dashboard', ['title' => 'Login'])
             ->section('main-content');
     }
 }

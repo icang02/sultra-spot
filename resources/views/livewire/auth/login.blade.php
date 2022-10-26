@@ -10,7 +10,7 @@
               <span class="app-brand-logo demo">
                 <img src="{{ asset('sneat/img/favicon/logo.png') }}" alt="logo" width="32">
               </span>
-              <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+              <span class="app-brand-text demo text-body fw-bolder">SultraSpot</span>
             </a>
           </div>
           <!-- /Logo -->
@@ -60,7 +60,8 @@
               </div>
             </div>
             <div class="mb-3">
-              <button class="btn btn-primary d-grid w-100 color-primary-bg" type="submit">Sign in</button>
+              <button class="btn btn-primary d-grid w-100 color-primary-bg color-primary-outline" type="submit">Sign
+                in</button>
             </div>
           </form>
 

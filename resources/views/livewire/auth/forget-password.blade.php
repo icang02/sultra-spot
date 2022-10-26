@@ -10,7 +10,7 @@
               <span class="app-brand-logo demo">
                 <img src="{{ asset('sneat/img/favicon/logo.png') }}" alt="logo" width="32">
               </span>
-              <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+              <span class="app-brand-text demo text-body fw-bolder">SultraSpot</span>
             </a>
           </div>
           <!-- /Logo -->
@@ -22,10 +22,10 @@
               <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email"
                 autofocus />
             </div>
-            <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
+            <button class="btn btn-primary d-grid w-100 color-primary-bg color-primary-outline">Send Reset Link</button>
           </form>
           <div class="text-center">
-            <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center">
+            <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center color-primary">
               <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
               Back to login
             </a>

@@ -34,10 +34,13 @@
   <!-- Vendors CSS -->
   <link rel="stylesheet" href="{{ asset('sneat/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
-  <link rel="stylesheet" href="{{ asset('sneat/vendor/libs/apex-charts/apex-charts.css') }}" />
+  @auth
+    <link rel="stylesheet" href="{{ asset('sneat/vendor/libs/apex-charts/apex-charts.css') }}" />
+  @endauth
 
   <!-- Page CSS -->
-
+  <!-- Page -->
+  <link rel="stylesheet" href="{{ asset('sneat/vendor/css/pages/page-auth.css') }}" />
   <!-- Helpers -->
   <script src="{{ asset('sneat/vendor/js/helpers.js') }}"></script>
 
@@ -50,45 +53,53 @@
 </head>
 
 <body>
-  <!-- Layout wrapper -->
-  <div class="layout-wrapper layout-content-navbar">
 
-    <div class="layout-container">
-      <!-- Menu -->
+  @guest
+    <!-- Content -->
+    @yield('main-content')
+    <!-- / Content -->
+  @endguest
 
-      @livewire('dashboard.components.sidebar')
-      <!-- / Menu -->
+  @auth
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
 
-      <!-- Layout container -->
-      <div class="layout-page">
-        <!-- Navbar -->
+      <div class="layout-container">
+        <!-- Menu -->
 
-        @livewire('dashboard.components.navbar')
-        <!-- / Navbar -->
+        @livewire('dashboard.components.sidebar')
+        <!-- / Menu -->
 
-        <!-- Content wrapper -->
-        <div class="content-wrapper">
-          <!-- Content -->
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
 
-          @yield('main-content')
-          <!-- / Content -->
+          @livewire('dashboard.components.navbar')
+          <!-- / Navbar -->
 
-          <!-- Footer -->
-          @livewire('dashboard.components.footer')
-          <!-- / Footer -->
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
 
-          <div class="content-backdrop fade"></div>
+            @yield('main-content')
+            <!-- / Content -->
+
+            <!-- Footer -->
+            @livewire('dashboard.components.footer')
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
         </div>
-        <!-- Content wrapper -->
+        <!-- / Layout page -->
       </div>
-      <!-- / Layout page -->
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-  </div>
-
-  <!-- / Layout wrapper -->
+    <!-- / Layout wrapper -->
+  @endauth
 
   @livewireScripts
   <!-- Core JS -->
@@ -101,14 +112,18 @@
   <script src="{{ asset('sneat/vendor/js/menu.js') }}"></script>
   <!-- endbuild -->
 
-  <!-- Vendors JS -->
-  <script src="{{ asset('sneat/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+  @auth
+    <!-- Vendors JS -->
+    <script src="{{ asset('sneat/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+  @endauth
 
   <!-- Main JS -->
   <script src="{{ asset('sneat/js/main.js') }}"></script>
 
-  <!-- Page JS -->
-  <script src="{{ asset('sneat/js/dashboards-analytics.js') }}"></script>
+  @auth
+    <!-- Page JS -->
+    <script src="{{ asset('sneat/js/dashboards-analytics.js') }}"></script>
+  @endauth
 
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
