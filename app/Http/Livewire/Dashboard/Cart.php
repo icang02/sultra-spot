@@ -8,6 +8,18 @@ use Livewire\Component;
 class Cart extends Component
 {
     public $cartId, $qty, $chkboxKamera, $hrgSewaKamera;
+    public $cartIdCheckout = 0;
+
+    public function getCartId($cartId)
+    {
+        $this->cartIdCheckout = $cartId;
+    }
+
+    public function toCheckout()
+    {
+        session()->put('order', UserCart::find($this->cartIdCheckout));
+        redirect()->route('cart.order');
+    }
 
     public function editCart($qty)
     {

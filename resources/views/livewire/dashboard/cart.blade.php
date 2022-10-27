@@ -21,37 +21,6 @@
           <tbody class="table-border-bottom-0">
 
             @foreach ($carts as $key => $cart)
-              <tr>
-                <td><input type="checkbox" class="form-check-input checkboxone" value="1"></td>
-                <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong> {{ $key + $carts->firstItem() }}
-                  </strong></td>
-                <td> {{ $cart->tour_place->name }} </td>
-                <td><input value="{{ $cart->quantity }}" type="text" readonly="" class="form-control"
-                    style="width: 50px; text-align: center;">
-                </td>
-                <td> Rp {{ $cart->tour_place->price }} </td>
-                <td class="text-center">
-                  @if ($cart->price_kamera > 0)
-                    Rp {{ $cart->price_kamera }}
-                  @elseif ($cart->price_kamera === 0)
-                    -
-                  @elseif (is_null($cart->price_kamera))
-                    <span class="text-warning">Not available</span>
-                  @endif
-                </td>
-                <td class="text-end"> Rp {{ $cart->total_payment }} </td>
-                <td>
-                  <button wire:click="editCart({{ $cart->quantity }})" class="btn btn-sm btn-primary me-1"
-                    data-bs-toggle="modal" data-bs-target="#smallModal{{ $cart->id }}">
-                    <i class="bx bx-edit"></i>
-                  </button>
-                  <button wire:click="deleteInCart({{ $cart->id }})" wire:loading.class="disabled"
-                    class="btn btn-sm btn-danger">
-                    <i class="bx bx-message-square-x"></i>
-                  </button>
-                </td>
-              </tr>
-
               {{-- Modal Update --}}
               <div class="col-lg-4 col-md-6">
                 <div wire:ignore.self class="modal fade" id="smallModal{{ $cart->id }}" tabindex="-1"
@@ -96,14 +65,54 @@
                   </div>
                 </div>
               </div>
+
+              <form wire:submit.prevent>
+                <tr>
+                  <td>
+                    <input type="checkbox" class="form-check-input checkboxone"
+                      wire:click="getCartId({{ $cart->id }})" onclick="onlyOne(this)" />
+                  </td>
+                  <td>
+                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                    <strong> {{ $key + $carts->firstItem() }} </strong>
+                  </td>
+                  <td> {{ $cart->tour_place->name }} </td>
+                  <td>
+                    <input value="{{ $cart->quantity }}" type="text" readonly="" class="form-control"
+                      style="width: 50px; text-align: center;">
+                  </td>
+                  <td> Rp {{ $cart->tour_place->price }} </td>
+                  <td class="text-center">
+                    @if ($cart->price_kamera > 0)
+                      Rp {{ $cart->price_kamera }}
+                    @elseif ($cart->price_kamera === 0)
+                      -
+                    @elseif (is_null($cart->price_kamera))
+                      <span class="text-warning">Not available</span>
+                    @endif
+                  </td>
+                  <td class="text-end"> Rp {{ $cart->total_payment }} </td>
+                  <td>
+                    <button wire:click="editCart({{ $cart->quantity }})" class="btn btn-sm btn-primary me-1"
+                      data-bs-toggle="modal" data-bs-target="#smallModal{{ $cart->id }}">
+                      <i class="bx bx-edit"></i>
+                    </button>
+                    <button wire:click="deleteInCart({{ $cart->id }})" wire:loading.class="disabled"
+                      class="btn btn-sm btn-danger">
+                      <i class="bx bx-message-square-x"></i>
+                    </button>
+                  </td>
+                </tr>
+              </form>
             @endforeach
 
             <tr>
               <td colspan="7"></td>
               <td>
-                <form class="d-inline"><button type="submit" class="btn btn-info">Continue</button></form>
+                <button wire:click="toCheckout" type="button" class="btn btn-info">Continue</button>
               </td>
             </tr>
+
           </tbody>
         </table>
       </div>
@@ -114,4 +123,18 @@
     </div>
   @endif
   <hr class="my-5">
+
+  @push('script')
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <script>
+      function onlyOne() {
+        $(".checkboxone").on("change", function() {
+          $(".checkboxone").not(this).prop("checked", false);
+        });
+      }
+    </script>
+  @endpush
+  <h2>{{ $cartIdCheckout }}</h2>
 </div>

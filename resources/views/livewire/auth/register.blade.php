@@ -99,7 +99,8 @@
               </div>
             </div>
             <button type="submit" class="btn btn-primary d-grid w-100 color-primary-bg color-primary-outline">Sign
-              up</button>
+              up
+            </button>
           </form>
 
           <p class="text-center">
