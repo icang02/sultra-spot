@@ -29,7 +29,7 @@ Route::get('wisata/order/{id}', Order::class)->middleware('auth')->name('wisata.
 // Route::get('cart/order', OrderCart::class)->middleware('auth')->name('cart.order');
 
 Route::get('order', OrderList::class)->middleware('auth')->name('orderList');
-Route::get('order/{id}', OrderDetail::class)->middleware('auth');
+Route::get('order/{orderId}', OrderDetail::class)->middleware('auth');
 
 Route::get('login', Login::class)->name('login')->middleware('guest');
 Route::get('register', Register::class)->name('register')->middleware('guest');

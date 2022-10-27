@@ -22,11 +22,6 @@ class OrderList extends Component
         }
     }
 
-    public function toDetail($orderId)
-    {
-        $this->emit('getOrderId', $orderId);
-    }
-
     public function render()
     {
         return view('livewire.dashboard.order-list', [

@@ -2,16 +2,29 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\UserOrder;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class OrderDetail extends Component
 {
-    public $orderId;
-    protected $listeners = ['getOrderId', '__construct']
+    use WithFileUploads;
 
-    public function __construct(int $orderId)
+    public $order;
+    public $image;
+
+    public function mount($orderId)
     {
-        $this->orderId = $orderId;
+        $this->order = UserOrder::find($orderId);
+    }
+
+    public function uploadImage()
+    {
+        $this->validate([
+            'image' => 'image|max:2048',
+        ]);
+
+        // $this->image->store('img-transfer');
     }
 
     public function render()

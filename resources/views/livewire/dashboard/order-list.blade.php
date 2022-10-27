@@ -34,7 +34,7 @@
                   @endif
                 </td>
                 <td>
-                  <button class="btn btn-sm btn-primary" wire:click="toDetail({{ $order->id }})"> Detail </button>
+                  <a class="btn btn-sm btn-primary" href="{{ url("order/$order->id") }}"> Detail </a>
                   <button class="btn btn-sm btn-danger"> Delete </button>
                 </td>
               </tr>
