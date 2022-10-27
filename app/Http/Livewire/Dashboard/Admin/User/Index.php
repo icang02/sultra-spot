@@ -12,7 +12,7 @@ class Index extends Component
     use WithPagination;
 
     public $role;
-    protected $listeners = ['delete'];
+    protected $listeners = ['action'];
     protected $paginationTheme = 'bootstrap';
 
     public function mount(Role $role)
@@ -24,8 +24,8 @@ class Index extends Component
     {
         $this->dispatchBrowserEvent('swal:confirm', [
             'type' => 'warning',
-            'title' => 'Are you sure?',
-            'text' => '',
+            'title' => 'Checkout this item?',
+            'text' => 'Please check your item before checkout.',
             'id' => $id,
         ]);
     }

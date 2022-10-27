@@ -19,11 +19,11 @@
 
     {{-- Icon Cart --}}
     <ul class="navbar-nav flex-row align-items-center ms-auto">
-      <li class="nav-item lh-1 me-3">
+      {{-- <li class="nav-item lh-1 me-3">
         <a class="d-flex align-items-center" href="{{ route('cart') }}">
           Carts <span class="badge badge-center rounded-pill bg-success ms-2"> {{ $cartCount }} </span>
         </a>
-      </li>
+      </li> --}}
 
       <!-- User -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">

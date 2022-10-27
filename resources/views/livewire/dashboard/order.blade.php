@@ -1,5 +1,5 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transaksi /</span> Checkout </h4>
+  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transaction /</span> Checkout </h4>
   <div class="row px-md-4 px-1">
     <div class="col-md-12">
       <div class="card">
@@ -69,7 +69,9 @@
       <div class="card">
         <div class="card-body text-center">
           <div class="fs-5 fw-bold text-primary"> Total : Rp {{ $paymentTotal }}</div><br>
-          <div><button class="btn btn-lg btn-success fw-bold fs-5"> CHECKOUT </button></div>
+          <div>
+            <button wire:click="checkoutConfirm" class="btn btn-lg btn-success fw-bold fs-5"> CHECKOUT </button>
+          </div>
         </div>
       </div>
     </div>

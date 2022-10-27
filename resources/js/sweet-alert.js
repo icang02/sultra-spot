@@ -19,10 +19,10 @@ window.addEventListener('swal:confirm', event => {
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!',
+    confirmButtonText: 'Continue',
   }).then((willDelete) => {
     if (willDelete.isConfirmed) {
-      window.livewire.emit('delete', event.detail.id);
+      window.livewire.emit('action', event.detail.id);
     }
   })
 });

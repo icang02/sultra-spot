@@ -70,16 +70,16 @@
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Transaction</span>
       </li>
-      @can('pengunjung')
+      {{-- @can('pengunjung')
         <li class="menu-item {{ request()->is('cart') ? 'active' : '' }}">
           <a href="{{ route('cart') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-cart"></i>
             <div data-i18n="Analytics">Cart</div>
           </a>
         </li>
-      @endcan
-      <li class="menu-item {{ Route::has('p') ? 'active' : '' }}">
-        <a href="index.html" class="menu-link">
+      @endcan --}}
+      <li class="menu-item {{ Route::has('order') ? 'active' : '' }}">
+        <a href="{{ route('orderList') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-detail"></i>
           <div data-i18n="Analytics"> {{ Auth()->user()->role_id == 2 ? 'Order' : 'My Order' }} </div>
         </a>
