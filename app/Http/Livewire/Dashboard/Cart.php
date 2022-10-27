@@ -55,6 +55,8 @@ class Cart extends Component
                 'type' => 'error',
                 'title' => 'Item deleted!',
             ]);
+
+            $this->emit('updateCartCount');
         }
     }
 

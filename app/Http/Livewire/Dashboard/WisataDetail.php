@@ -91,9 +91,9 @@ class WisataDetail extends Component
                     'type' => 'success',
                     'title' => 'Item added successfully!',
                 ]);
+                $this->emit('updateCartCount');
             }
         } else {
-            // dd($carts->where('tour_place_id', $wisataId)->first());
             $cart = $carts->where('tour_place_id', $wisataId)->first();
             if ($cart) {
                 $cart->update([
@@ -101,6 +101,7 @@ class WisataDetail extends Component
                     'total_payment' => $this->paymentTotal,
                     'price_kamera' => $this->hrgSewaKamera,
                 ]);
+                $this->emit('updateCartCount');
 
                 return $this->dispatchBrowserEvent('swal:toast', [
                     'type' => 'success',
@@ -120,6 +121,7 @@ class WisataDetail extends Component
                     'type' => 'success',
                     'title' => 'Item added successfully!',
                 ]);
+                $this->emit('updateCartCount');
             }
         }
     }

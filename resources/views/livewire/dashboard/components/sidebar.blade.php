@@ -86,8 +86,6 @@
       </li>
     @endif
 
-
-
     <li class="menu-header small text-uppercase"></li>
   </ul>
 </aside>
