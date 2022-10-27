@@ -24,8 +24,8 @@
             @if ($wisata->rental)
               <div class="form-check">
                 <input wire:model="chkboxSewaKamera" class="form-check-input" type="checkbox" id="rental">
-                <label class="form-check-label" for="rental"> Tambah <span class="fw-bold">
-                    Rp 50.000</span> untuk sewa kamera kamera
+                <label class="form-check-label" for="rental"> Add <span class="fw-bold">
+                    Rp 50.000</span> for camera rental
                 </label>
               </div>
             @endif
@@ -33,7 +33,7 @@
             <div class="mt-4">
               @if ($wisata->ticket_stock > 0)
                 <button type="submit" class="btn btn-info me-1">
-                  <i class="bx bx-right-arrow me-1"></i> Order
+                  <i class="bx bx-right-arrow me-1"></i> Order Now
                 </button>
                 {{-- <div class="btn btn-warning" wire:click="addToCart({{ $wisata->id }})" wire:loading.class="disabled">
                   <i class="bx bxs-cart-add me-1"></i> Save
@@ -42,9 +42,9 @@
                 <button class="btn btn-info me-1" disabled>
                   <i class="bx bx-right-arrow me-1"></i> Order Now
                 </button>
-                <div class="btn btn-warning" disabled>
+                {{-- <div class="btn btn-warning" disabled>
                   <i class="bx bxs-cart-add me-1"></i> Save
-                </div>
+                </div> --}}
               @endif
             </div>
           </form>
@@ -64,29 +64,29 @@
           <div class="row mb-3">
             <div class="col-md-1 col-1"><i class="bx bxs-map"></i></div>
             <div class="col-md-11 col-11">
-              <div class="fw-bold">ALAMAT</div> {{ $wisata->address }}
+              <div class="fw-bold">Address</div> {{ $wisata->address }}
             </div>
           </div>
           <div class="row mb-3">
             <div class="col-md-1 col-1"><i class="bx bxs-phone"></i></div>
             <div class="col-md-11 col-11">
-              <div class="fw-bold">TELEPON</div> {{ $wisata->telp }}
+              <div class="fw-bold">Phone</div> {{ $wisata->telp }}
             </div>
           </div>
           <div class="row mb-3">
             <div class="col-md-1 col-1"><i class="bx bxs-purchase-tag-alt"></i></div>
             <div class="col-md-11 col-11">
-              <div class="fw-bold">HARGA TIKET</div> Rp {{ $wisata->price }}
+              <div class="fw-bold">Ticket Price</div> Rp {{ number_format($wisata->price, 2, ',', '.') }}
             </div>
           </div>
           <div class="row">
             <div class="col-md-1 col-1"><i class="bx bxs-plane-take-off"></i></div>
             <div class="col-md-11 col-11">
-              <div class="fw-bold">STOK</div>
+              <div class="fw-bold">Stock</div>
               @if ($wisata->ticket_stock > 0)
                 <span> {{ $wisata->ticket_stock }} </span>
               @else
-                <span class="text-danger"> Kosong </span>
+                <span class="text-danger"> Tickets sold out </span>
               @endif
             </div>
           </div>

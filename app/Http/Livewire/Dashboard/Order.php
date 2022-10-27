@@ -18,8 +18,8 @@ class Order extends Component
 
     public function mount()
     {
-        $this->wisataid = session('wisataId');
-        $this->wisata = TourPlace::find($this->wisataid);
+        $this->wisataId = session('wisataId');
+        $this->wisata = TourPlace::find($this->wisataId);
 
         $this->rental = $this->wisata->rental;
 

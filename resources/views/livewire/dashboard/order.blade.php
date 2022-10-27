@@ -3,18 +3,17 @@
   <div class="row px-md-4 px-1">
     <div class="col-md-12">
       <div class="card">
-        <h6 class="card-header text-light"> Harga dapat
-          berubah berdasarkan
-          promosi / nilai tukar uang. Beberapa item
-          mungkin tidak ada stok. </h6>
+        <h6 class="card-header text-light">
+          Prices are subject to change based on promotions / currency exchange rates. Some items may be out of stock.
+        </h6>
         <div class="table-responsive text-nowrap pb-3">
           <table class="table table-borderless">
             <thead>
               <tr class="fw-bold">
                 <th style="width: 10%;">Item</th>
                 <th style="max-width: 60%;"></th>
-                <th class="text-end" style="width: 10%;">Harga</th>
-                <th class="text-end" style="width: 10%;">Jumlah</th>
+                <th class="text-end" style="width: 10%;">Price</th>
+                <th class="text-end" style="width: 10%;">Quantity</th>
                 <th class="text-end" style="width: 10%;">Total</th>
               </tr>
             </thead>
@@ -31,9 +30,9 @@
                   <br>
                   <span> {{ $address }} </span>
                 </td>
-                <td class="text-end"> Rp {{ $price }} </td>
+                <td class="text-end"> Rp {{ number_format($price, 2, ',', '.') }} </td>
                 <td class="text-end"> {{ $qty }} </td>
-                <td class="text-end"> Rp {{ $total }} </td>
+                <td class="text-end"> Rp {{ number_format($total, 2, ',', '.') }} </td>
               </tr>
               <tr>
                 <td colspan="5">
@@ -42,21 +41,21 @@
               </tr>
               <tr>
                 <td colspan="3"><a class="btn btn-sm btn-success" href="http://sultraspot.herokuapp.com/list-wisata">
-                    Lihat Semua Wisata </a></td>
-                <td class="fw-bold">Diskon</td>
+                    See All Tours </a></td>
+                <td class="fw-bold">Discount</td>
                 <td class="text-end fw-bold">-</td>
               </tr>
               @if ($rental)
                 <tr>
                   <td colspan="3"></td>
                   <td>Sewa Kamera</td>
-                  <td class="text-end"> Rp {{ $hrgSewaKamera }} </td>
+                  <td class="text-end"> Rp {{ number_format($hrgSewaKamera, 2, ',', '.') }} </td>
                 </tr>
               @endif
               <tr>
                 <td colspan="3"></td>
                 <td class="fw-bold">Total (IDR)</td>
-                <td class="text-end fw-bold"> Rp {{ $paymentTotal }} </td>
+                <td class="text-end fw-bold"> Rp {{ number_format($paymentTotal, 2, ',', '.') }} </td>
               </tr>
             </tbody>
           </table>
@@ -68,7 +67,7 @@
     <div class="col-md-4">
       <div class="card">
         <div class="card-body text-center">
-          <div class="fs-5 fw-bold text-primary"> Total : Rp {{ $paymentTotal }}</div><br>
+          <div class="fs-5 fw-bold text-primary"> Total : Rp {{ number_format($paymentTotal, 2, ',', '.') }}</div><br>
           <div>
             <button wire:click="checkoutConfirm" class="btn btn-lg btn-success fw-bold fs-5"> CHECKOUT </button>
           </div>

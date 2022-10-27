@@ -78,10 +78,17 @@
           </a>
         </li>
       @endcan --}}
-      <li class="menu-item {{ Route::has('order') ? 'active' : '' }}">
+      <li class="menu-item {{ request()->is('order*') ? 'active' : '' }}">
         <a href="{{ route('orderList') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-detail"></i>
-          <div data-i18n="Analytics"> {{ Auth()->user()->role_id == 2 ? 'Order' : 'My Order' }} </div>
+          <div data-i18n="Analytics">
+            {{ Auth()->user()->role_id == 2 ? 'Order' : 'My Order' }}
+            @if ($orderCount !== 0)
+              <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20 ms-1">
+                {{ $orderCount }}
+              </span>
+            @endif
+          </div>
         </a>
       </li>
     @endif
