@@ -10,8 +10,11 @@
             <tr>
               <th>No. Order</th>
               <th>Tour Name</th>
-              <th>Total</th>
-              <th>Status</th>
+              <th class="text-center">Total</th>
+              <th class="text-center">Status</th>
+              @if (Auth()->user()->role_id == 3)
+                <th class="text-center">Confirm / Cancel</th>
+              @endif
               <th>Actions</th>
             </tr>
           </thead>
@@ -23,8 +26,10 @@
                   <strong> {{ $order->no_order }} </strong>
                 </td>
                 <td> {{ $order->tour_place->name }} </td>
-                <td>Rp {{ number_format($order->total_payment, 0, ',', '.') }}</td>
-                <td>
+                <td class="text-end">
+                  Rp {{ number_format($order->total_payment, 0, ',', '.') }}
+                </td>
+                <td class="text-center">
                   @if ($order->image_tf_public_id && $order->status == 'pending')
                     <span class="badge bg-label-warning me-1"> Proses </span>
                   @elseif ($order->status == 'pending')
@@ -35,14 +40,58 @@
                     <span class="badge bg-label-danger me-1"> {{ $order->status }} </span>
                   @endif
                 </td>
+                <td class="text-center">
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      @if ($order->status != 'pending')
+                        <button class="dropdown-item">Done</button>
+                      @else
+                        <button wire:click="confirmOrder({{ $order->id }})"
+                          class="dropdown-item btn btn-success btn-sm">Confirm</button>
+                        <button wire:click="cancelOrder({{ $order->id }})"
+                          class="dropdown-item btn btn-danger btn-sm">Cancel</button>
+                      @endif
+                    </div>
+                  </div>
+                </td>
                 <td>
                   <a class="btn btn-sm btn-primary" href="{{ url("order/$order->id") }}"> Detail </a>
-                  @if (is_null($order->image_tf_public_id))
-                    <button wire:click="confirmDelete({{ $order->id }})" class="btn btn-sm btn-danger"> Cancel
+
+                  @if (Auth::user()->role_id == 3 && $order->image_tf_public_id)
+                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal"
+                      data-bs-whatever="@mdo">Evidence of transfer</button>
+                  @endif
+
+                  @if (is_null($order->image_tf_public_id) && Auth()->user()->role_id == 2)
+                    <button wire:click="confirmDelete({{ $order->id }})"class="btn btn-sm btn-danger"> Cancel
                     </button>
                   @endif
                 </td>
               </tr>
+
+              {{-- Modal Start --}}
+              <div wire:ignore.self class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Evidence of transfer</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <img src="{{ $order->image_tf }}" alt="nota.jpg" class="img-fluid">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{-- Modal End --}}
             @endforeach
           </tbody>
         </table>

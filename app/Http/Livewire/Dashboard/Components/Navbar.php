@@ -19,7 +19,7 @@ class Navbar extends Component
                 ->where('status', '=', 'pending')
                 ->count();
         } elseif (auth()->user()->role_id == 3) {
-            $this->orderCount = PengelolaOrder::where('user_id', auth()->user()->id)->count();
+            $this->orderCount = PengelolaOrder::where('tour_place_id', auth()->user()->id)->where('status', 'pending')->count();
         }
     }
 

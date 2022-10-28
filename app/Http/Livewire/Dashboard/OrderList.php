@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class OrderList extends Component
 {
-    protected $listeners = ['action'];
+    protected $listeners = ['action', 'render'];
     public $orderId;
 
     public function mount()
@@ -21,7 +21,45 @@ class OrderList extends Component
         if (auth()->user()->role_id == 2) {
             return UserOrder::where('user_id', auth()->user()->id)->paginate(10);
         } elseif (auth()->user()->role_id == 3) {
-            return PengelolaOrder::where('user_id', auth()->user()->id)->paginate(10);
+            return PengelolaOrder::where('tour_place_id', auth()->user()->id)->paginate(10);
+        }
+    }
+
+    public function confirmOrder($orderId)
+    {
+        $userOrder = UserOrder::find($orderId)->update([
+            'status' => 'selesai',
+        ]);
+        $pengelolaOrder = PengelolaOrder::find($orderId)->update([
+            'status' => 'selesai',
+        ]);
+
+        if ($userOrder && $pengelolaOrder) {
+            $this->dispatchBrowserEvent('swal:toast', [
+                'type' => 'success',
+                'title' => 'Order confirmed!',
+            ]);
+            $this->emit('render');
+            $this->emit('updateCartCount');
+        }
+    }
+
+    public function cancelOrder($orderId)
+    {
+        $userOrder = UserOrder::find($orderId)->update([
+            'status' => 'gagal',
+        ]);
+        $pengelolaOrder = PengelolaOrder::find($orderId)->update([
+            'status' => 'gagal',
+        ]);
+
+        if ($userOrder && $pengelolaOrder) {
+            $this->dispatchBrowserEvent('swal:toast', [
+                'type' => 'error',
+                'title' => 'Order canceled!',
+            ]);
+            $this->emit('render');
+            $this->emit('updateCartCount');
         }
     }
 

@@ -38,7 +38,7 @@
           </div>
           <hr class="mb-4">
 
-          @if ($order->image_tf == 'nota.jpg')
+          @if ($order->image_tf == 'nota.jpg' && Auth()->user()->role_id == 2)
             <form wire:submit.prevent="uploadImage">
               <h6 class="fw-bold">Evidence of transfer</h6>
               <div class="input-group mt-3">
@@ -51,8 +51,10 @@
               </div>
             </form>
           @else
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"
-              data-bs-whatever="@mdo">See evidence of transfer</button>
+            @if ($order->image_tf_public_id)
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"
+                data-bs-whatever="@mdo">See evidence of transfer</button>
+            @endif
 
             {{-- Modal Start --}}
             <div wire:ignore.self class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
