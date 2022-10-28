@@ -34,13 +34,15 @@
                 <img src="{{ $imgAvatars }}" alt="user-avatar" class="d-block rounded" height="100" width="100"
                   id="uploadedAvatar" />
               @endif
+              {{-- <img src="{{ asset('sneat/img/avatars/profil.png') }}" alt="user-avatar"
+                class="d-block rounded img-preview" height="100" width="100" id="uploadedAvatar" /> --}}
               <div class="button-wrapper">
                 <label for="upload" class="btn btn-primary me-2 mb-4 color-primary-bg color-primary-outline"
-                  tabindex="0">
+                  wire:loading.class='disabled' tabindex="0">
                   <span class="d-none d-sm-block">Upload new photo</span>
                   <i class="bx bx-upload d-block d-sm-none"></i>
-                  <input wire:model="imgProfil" type="file" id="upload" class="account-file-input" hidden
-                    accept="image/png, image/jpeg" />
+                  <input wire:model="imgProfil" onchange="previewImage()" type="file" id="upload"
+                    class="account-file-input sampul" hidden accept="image/png, image/jpeg" />
                 </label>
                 <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                   <i class="bx bx-reset d-block d-sm-none"></i>
@@ -87,7 +89,8 @@
             </div>
 
             <div class="mt-2">
-              <button type="submit" class="btn btn-primary me-2 color-primary-bg color-primary-outline">Save
+              <button type="submit" class="btn btn-primary me-2 color-primary-bg color-primary-outline"
+                wire:loading.class='disabled'>Save
                 changes</button>
               <button wire:click="resetForm" type="reset" class="btn btn-outline-secondary">Cancel</button>
             </div>
@@ -158,4 +161,20 @@
     </div>
   </div>
   {{-- Modal End --}}
+
+  @push('script')
+    <script>
+      function previewImage() {
+        const image = document.querySelector(".sampul");
+        const imgPreview = document.querySelector(".img-preview");
+
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(image.files[0]);
+
+        oFReader.onload = function(oFREvent) {
+          imgPreview.src = oFREvent.target.result;
+        };
+      }
+    </script>
+  @endpush
 </div>
