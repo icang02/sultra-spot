@@ -76,7 +76,7 @@
           <div class="row mb-3">
             <div class="col-md-1 col-1"><i class="bx bxs-purchase-tag-alt"></i></div>
             <div class="col-md-11 col-11">
-              <div class="fw-bold">Ticket Price</div> Rp {{ number_format($wisata->price, 2, ',', '.') }}
+              <div class="fw-bold">Ticket Price</div> Rp {{ number_format($wisata->price, 0, ',', '.') }}
             </div>
           </div>
           <div class="row">

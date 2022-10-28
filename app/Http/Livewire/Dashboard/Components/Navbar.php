@@ -10,7 +10,7 @@ use Livewire\Component;
 class Navbar extends Component
 {
     public $orderCount;
-    protected $listeners = ['updateCartCount' => 'mount'];
+    protected $listeners = ['updateCartCount' => 'mount', 'render'];
 
     public function mount()
     {

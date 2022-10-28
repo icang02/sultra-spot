@@ -4,10 +4,13 @@ namespace App\Http\Livewire\Dashboard;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
-    public $userId, $name, $email, $username, $userType;
+    use WithFileUploads;
+    public $userId, $name, $email, $username, $userType, $imgProfil;
+    public $imgAvatars;
     public $usernameDelete, $checkboxDeactive;
 
     protected $listeners = ['delete'];
@@ -21,6 +24,7 @@ class Profile extends Component
         $this->email = $user->email;
         $this->username = $user->username;
         $this->userType = $user->role->name;
+        $this->imgAvatars = $user->image_profil;
     }
 
     public function updateUser($userId)
@@ -28,12 +32,20 @@ class Profile extends Component
         $this->validate([
             'name' => 'required',
             'email' => 'required|email:dns',
+            'imgProfil' => 'image|max:2048',
         ]);
+
+        // Uplaod Avatars
+        $avatars = cloudinary()->upload($this->imgProfil->getRealPath(), [
+            'folder' => 'avatars'
+        ])->getSecurePath();
 
         $user = User::find($userId);
         $user->update([
             'name' => $this->name,
             'email' => $this->email,
+            'image_profil' => $avatars,
+            'image_public_id' => cloudinary()->getPublicId($avatars)
         ]);
 
         if ($user) {
@@ -41,6 +53,7 @@ class Profile extends Component
                 'type' => 'success',
                 'title' => 'Profile updated!',
             ]);
+            $this->emit('render');
         }
     }
 

@@ -38,7 +38,7 @@
           </div>
           <hr class="mb-4">
 
-          @if ($order->image_tf == 'nota.jpg' && Auth()->user()->role_id == 2)
+          @if ($order->image_tf == 'nota.jpg' && Auth()->user()->role_id == 2 && $order->status == 'pending')
             <form wire:submit.prevent="uploadImage">
               <h6 class="fw-bold">Evidence of transfer</h6>
               <div class="input-group mt-3">
@@ -77,7 +77,6 @@
             </div>
             {{-- Modal End --}}
           @endif
-
 
         </div>
       </div>

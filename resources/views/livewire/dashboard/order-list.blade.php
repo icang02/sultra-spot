@@ -40,23 +40,25 @@
                     <span class="badge bg-label-danger me-1"> {{ $order->status }} </span>
                   @endif
                 </td>
-                <td class="text-center">
-                  <div class="dropdown">
-                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                      @if ($order->status != 'pending')
-                        <button class="dropdown-item">Done</button>
-                      @else
-                        <button wire:click="confirmOrder({{ $order->id }})"
-                          class="dropdown-item btn btn-success btn-sm">Confirm</button>
-                        <button wire:click="cancelOrder({{ $order->id }})"
-                          class="dropdown-item btn btn-danger btn-sm">Cancel</button>
-                      @endif
+                @if (Auth()->user()->role_id == 3)
+                  <td class="text-center">
+                    <div class="dropdown">
+                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        @if ($order->status != 'pending')
+                          <button class="dropdown-item">Done</button>
+                        @else
+                          <button wire:click="confirmOrder({{ $order->id }})"
+                            class="dropdown-item btn btn-success btn-sm">Confirm</button>
+                          <button wire:click="cancelOrder({{ $order->id }})"
+                            class="dropdown-item btn btn-danger btn-sm">Cancel</button>
+                        @endif
+                      </div>
                     </div>
-                  </div>
-                </td>
+                  </td>
+                @endif
                 <td>
                   <a class="btn btn-sm btn-primary" href="{{ url("order/$order->id") }}"> Detail </a>
 
@@ -65,7 +67,7 @@
                       data-bs-whatever="@mdo">Evidence of transfer</button>
                   @endif
 
-                  @if (is_null($order->image_tf_public_id) && Auth()->user()->role_id == 2)
+                  @if (is_null($order->image_tf_public_id) && Auth()->user()->role_id == 2 && $order->status == 'pending')
                     <button wire:click="confirmDelete({{ $order->id }})"class="btn btn-sm btn-danger"> Cancel
                     </button>
                   @endif
