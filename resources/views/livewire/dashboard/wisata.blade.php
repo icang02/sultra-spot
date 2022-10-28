@@ -2,9 +2,10 @@
   <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Wisata &amp; Event /</span> Wisata </h4>
   <div class="row mb-4 px-md-4 px-1 justify-content-center">
 
-    @if (Auth::user()->id == 2)
+    @if (Auth::user()->role_id == 2)
       @foreach ($allWisata as $wisata)
-        <div class="col-md-6 mb-2"><a class="card mb-3 cursor-pointer shadow" href="wisata/{{ $wisata->id }}">
+        <div class="col-md-6 mb-2">
+          <a class="card mb-3 cursor-pointer shadow text-secondary" href="wisata/{{ $wisata->id }}">
             <div class="row g-0">
               <div class="col-md-4"><img class="card-img card-img-left"
                   src="{{ asset('sneat/img/wisata/thumb/' . $wisata->image) }}" alt="Card image" width="1000"></div>
@@ -19,23 +20,8 @@
           </a>
         </div>
       @endforeach
-    @elseif (Auth::user()->id == 3)
-      @foreach ($allWisata as $wisata)
-        <div class="col-md-6 mb-2"><a class="card mb-3 cursor-pointer shadow" href="wisata/{{ $wisata->id }}">
-            <div class="row g-0">
-              <div class="col-md-4"><img class="card-img card-img-left"
-                  src="{{ asset('sneat/img/wisata/thumb/' . $wisata->image) }}" alt="Card image" width="1000"></div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title"> {{ $wisata->name }} </h5>
-                  <p class="card-text"><i class="bx bxs-map"></i> {{ $wisata->address }}</p>
-                  <p class="card-text"><small class="text-muted"> {{ $wisata->city }} </small></p>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      @endforeach
+    @elseif (Auth::user()->role_id == 3)
+      <h2>Halaman Wisata Pengelola</h2>
     @endif
 
   </div>

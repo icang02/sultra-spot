@@ -83,11 +83,11 @@
           <i class="menu-icon tf-icons bx bx-detail"></i>
           <div data-i18n="Analytics">
             {{ Auth()->user()->role_id == 2 ? 'Order' : 'My Order' }}
-            @if ($orderCount !== 0)
+            {{-- @if ($orderCount !== 0)
               <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20 ms-1">
                 {{ $orderCount }}
               </span>
-            @endif
+            @endif --}}
           </div>
         </a>
       </li>

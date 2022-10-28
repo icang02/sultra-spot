@@ -30,9 +30,9 @@
                   <br>
                   <span> {{ $address }} </span>
                 </td>
-                <td class="text-end"> Rp {{ number_format($price, 2, ',', '.') }} </td>
+                <td class="text-end"> Rp {{ number_format($price, 0, ',', '.') }} </td>
                 <td class="text-end"> {{ $qty }} </td>
-                <td class="text-end"> Rp {{ number_format($total, 2, ',', '.') }} </td>
+                <td class="text-end"> Rp {{ number_format($total, 0, ',', '.') }} </td>
               </tr>
               <tr>
                 <td colspan="5">
@@ -40,7 +40,7 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="3"><a class="btn btn-sm btn-success" href="http://sultraspot.herokuapp.com/list-wisata">
+                <td colspan="3"><a class="btn btn-sm btn-success" href="{{ route('wisata') }}">
                     See All Tours </a></td>
                 <td class="fw-bold">Discount</td>
                 <td class="text-end fw-bold">-</td>
@@ -49,13 +49,13 @@
                 <tr>
                   <td colspan="3"></td>
                   <td>Sewa Kamera</td>
-                  <td class="text-end"> Rp {{ number_format($hrgSewaKamera, 2, ',', '.') }} </td>
+                  <td class="text-end"> Rp {{ number_format($hrgSewaKamera, 0, ',', '.') }} </td>
                 </tr>
               @endif
               <tr>
                 <td colspan="3"></td>
                 <td class="fw-bold">Total (IDR)</td>
-                <td class="text-end fw-bold"> Rp {{ number_format($paymentTotal, 2, ',', '.') }} </td>
+                <td class="text-end fw-bold"> Rp {{ number_format($paymentTotal, 0, ',', '.') }} </td>
               </tr>
             </tbody>
           </table>
@@ -67,7 +67,7 @@
     <div class="col-md-4">
       <div class="card">
         <div class="card-body text-center">
-          <div class="fs-5 fw-bold text-primary"> Total : Rp {{ number_format($paymentTotal, 2, ',', '.') }}</div><br>
+          <div class="fs-5 fw-bold text-primary"> Total : Rp {{ number_format($paymentTotal, 0, ',', '.') }}</div><br>
           <div>
             <button wire:click="checkoutConfirm" class="btn btn-lg btn-success fw-bold fs-5"> CHECKOUT </button>
           </div>
