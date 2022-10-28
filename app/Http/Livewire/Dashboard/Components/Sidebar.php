@@ -10,7 +10,7 @@ use Livewire\Component;
 class Sidebar extends Component
 {
     public $orderCount;
-    protected $listeners = ['updateCartCount', 'mount'];
+    protected $listeners = ['updateCartCount' => 'mount'];
 
     public function mount()
     {

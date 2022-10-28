@@ -30,7 +30,7 @@ class Index extends Component
         ]);
     }
 
-    public function delete($userId)
+    public function action($userId)
     {
         $user = User::find($userId)->delete();
         if ($user) {

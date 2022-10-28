@@ -38,17 +38,44 @@
           </div>
           <hr class="mb-4">
 
-          <form wire:submit.prevent="uploadImage">
-            <h6 class="fw-bold">Evidence of transfer</h6>
-            <div class="input-group mt-3">
-              <input wire:model="image" type="file" class="form-control @error('image') is-invalid @enderror"
-                accept="image/jpg, image/jpeg, image/png">
-              <button class="btn btn-outline-primary" type="submit"> Send </button>
-              @error('image')
-                <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+          @if ($order->image_tf == 'nota.jpg')
+            <form wire:submit.prevent="uploadImage">
+              <h6 class="fw-bold">Evidence of transfer</h6>
+              <div class="input-group mt-3">
+                <input wire:model="image" type="file" class="form-control @error('image') is-invalid @enderror"
+                  accept="image/jpg, image/jpeg, image/png">
+                <button class="btn btn-primary" wire:loading.class="disabled" type="submit"> Send </button>
+                @error('image')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+              </div>
+            </form>
+          @else
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"
+              data-bs-whatever="@mdo">See evidence of transfer</button>
+
+            {{-- Modal Start --}}
+            <div wire:ignore.self class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Evidence of transfer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <img src="{{ $order->image_tf }}" alt="nota.jpg" class="img-fluid">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
             </div>
-          </form>
+            {{-- Modal End --}}
+          @endif
+
 
         </div>
       </div>

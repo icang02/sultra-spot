@@ -6,8 +6,12 @@ window.addEventListener('swal:modal', event => {
     icon: event.detail.type,
     title: event.detail.title,
     text: event.detail.text,
-    showConfirmButton: true,
+    showConfirmButton: event.detail.showConfirmButton ?? true,
     timer: false,
+  }).then((e) => {
+    if (e.isConfirmed) {
+      // window.livewire.emit('action', event.detail.id);
+    }
   })
 });
 
@@ -30,7 +34,7 @@ window.addEventListener('swal:confirm', event => {
 window.addEventListener('swal:toast', event => {
   const Toast = Swal.mixin({
     toast: true,
-    position: 'bottom-end',
+    position: 'top-end',
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,

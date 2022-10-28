@@ -23,9 +23,11 @@
                   <strong> {{ $order->no_order }} </strong>
                 </td>
                 <td> {{ $order->tour_place->name }} </td>
-                <td>Rp {{ number_format($order->tour_place->price, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($order->tour_place->price, 0, ',', '.') }}</td>
                 <td>
-                  @if ($order->status == 'pending')
+                  @if ($order->image_tf_public_id)
+                    <span class="badge bg-label-warning me-1"> Proses </span>
+                  @elseif ($order->status == 'pending')
                     <span class="badge bg-label-warning me-1"> {{ $order->status }} </span>
                   @elseif ($order->status == 'selesai')
                     <span class="badge bg-label-success me-1"> {{ $order->status }} </span>
@@ -35,7 +37,10 @@
                 </td>
                 <td>
                   <a class="btn btn-sm btn-primary" href="{{ url("order/$order->id") }}"> Detail </a>
-                  <button class="btn btn-sm btn-danger"> Delete </button>
+                  @if (is_null($order->image_tf_public_id))
+                    <button wire:click="confirmDelete({{ $order->id }})" class="btn btn-sm btn-danger"> Cancel
+                    </button>
+                  @endif
                 </td>
               </tr>
             @endforeach

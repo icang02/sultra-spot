@@ -72,9 +72,10 @@ class Order extends Component
                 'type' => 'success',
                 'title' => 'Success!',
                 'text' => 'Please wait...',
+                'showConfirmButton' => false,
             ]);
 
-            return redirect()->route('wisata');
+            return redirect()->route('orderList');
         }
     }
 
