@@ -5,18 +5,17 @@ use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Dashboard\Admin\User\Edit as UserEdit;
 use App\Http\Livewire\Dashboard\Admin\User\Index as UserIndex;
-use App\Http\Livewire\Dashboard\Cart;
 use App\Http\Livewire\Dashboard\Index;
 use App\Http\Livewire\Dashboard\Order;
-use App\Http\Livewire\Dashboard\OrderCart;
 use App\Http\Livewire\Dashboard\OrderDetail;
 use App\Http\Livewire\Dashboard\OrderList;
 use App\Http\Livewire\Dashboard\Profile;
 use App\Http\Livewire\Dashboard\Wisata;
 use App\Http\Livewire\Dashboard\WisataDetail;
+use App\Http\Livewire\Home\Index as HomeIndex;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', Index::class)->name('dashboard')->middleware('auth');
+Route::get('/', HomeIndex::class)->name('home')->middleware('guest');
 Route::get('dashboard', Index::class)->name('dashboard')->middleware('auth');
 
 Route::get('profile', Profile::class)->name('profile')->middleware('auth');

@@ -6,7 +6,7 @@
         <div class="card-body">
           <!-- Logo -->
           <div class="app-brand justify-content-center">
-            <a href="index.html" class="app-brand-link gap-2">
+            <a href="{{ route('home') }}" class="app-brand-link gap-2">
               <span class="app-brand-logo demo">
                 <img src="{{ asset('sneat/img/favicon/logo.png') }}" alt="logo" width="32">
               </span>
