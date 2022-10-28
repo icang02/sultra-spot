@@ -3,13 +3,13 @@
 
   @if ($orderList->count() !== 0)
     <div class="card">
-      <h5 class="card-header">Tabel Pesanan</h5>
+      <h5 class="card-header">Order Table</h5>
       <div class="table-responsive text-nowrap">
         <table class="table">
           <thead>
             <tr>
-              <th>No. Pesanan</th>
-              <th>Tempat Wisata</th>
+              <th>No. Order</th>
+              <th>Tour Name</th>
               <th>Total</th>
               <th>Status</th>
               <th>Actions</th>
@@ -23,9 +23,9 @@
                   <strong> {{ $order->no_order }} </strong>
                 </td>
                 <td> {{ $order->tour_place->name }} </td>
-                <td>Rp {{ number_format($order->tour_place->price, 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($order->total_payment, 0, ',', '.') }}</td>
                 <td>
-                  @if ($order->image_tf_public_id)
+                  @if ($order->image_tf_public_id && $order->status == 'pending')
                     <span class="badge bg-label-warning me-1"> Proses </span>
                   @elseif ($order->status == 'pending')
                     <span class="badge bg-label-warning me-1"> {{ $order->status }} </span>

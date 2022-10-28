@@ -11,7 +11,7 @@ class OrderDetail extends Component
 {
     use WithFileUploads;
 
-    protected $listeners = ['action'];
+    protected $listeners = ['action', 'render'];
     public $order;
     public $image;
 
@@ -53,6 +53,7 @@ class OrderDetail extends Component
                 'title' => 'Success!',
                 'text' => 'Upload image successfully.',
             ]);
+            $this->emit('render');
         }
     }
 
