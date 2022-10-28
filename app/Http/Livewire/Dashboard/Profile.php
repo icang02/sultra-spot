@@ -12,40 +12,60 @@ class Profile extends Component
     public $userId, $name, $email, $username, $userType, $imgProfil;
     public $imgAvatars;
     public $usernameDelete, $checkboxDeactive;
+    public $user;
 
     protected $listeners = ['delete'];
 
     public function mount()
     {
-        $user = User::find(auth()->user()->id);
+        $this->user = User::find(auth()->user()->id);
 
-        $this->userId = $user->id;
-        $this->name = $user->name;
-        $this->email = $user->email;
-        $this->username = $user->username;
-        $this->userType = $user->role->name;
-        $this->imgAvatars = $user->image_profil;
+        $this->userId = $this->user->id;
+        $this->name = $this->user->name;
+        $this->email = $this->user->email;
+        $this->username = $this->user->username;
+        $this->userType = $this->user->role->name;
+        $this->imgAvatars = $this->user->image_profil;
+    }
+
+    public function resetAvatars()
+    {
+        redirect('profile');
     }
 
     public function updateUser($userId)
     {
-        $this->validate([
+        $rules = [
             'name' => 'required',
             'email' => 'required|email:dns',
-            'imgProfil' => 'image|max:2048',
-        ]);
+        ];
+        if ($this->user->image_profil == 'profil.png') {
+            $rules['imgProfil'] = 'image|max:2048';
+        }
 
-        // Uplaod Avatars
-        $avatars = cloudinary()->upload($this->imgProfil->getRealPath(), [
-            'folder' => 'avatars'
-        ])->getSecurePath();
+        $this->validate($rules);
+
+        if ($this->user->image_profil == 'profil.png') {
+            $avatars = cloudinary()->upload($this->imgProfil->getRealPath(), [
+                'folder' => 'avatars'
+            ])->getSecurePath();
+            $avatarsId = cloudinary()->getPublicId($avatars);
+        } elseif (!$this->imgProfil) {
+            $avatars = $this->user->image_profil;
+            $avatarsId = $this->user->image_publid_id;
+        } else {
+            $avatars = cloudinary()->upload($this->imgProfil->getRealPath(), [
+                'folder' => 'avatars'
+            ])->getSecurePath();
+            $avatarsId = cloudinary()->getPublicId($avatars);
+        }
 
         $user = User::find($userId);
         $user->update([
             'name' => $this->name,
             'email' => $this->email,
             'image_profil' => $avatars,
-            'image_public_id' => cloudinary()->getPublicId($avatars)
+            'image_public_id' => $avatarsId,
         ]);
 
         if ($user) {

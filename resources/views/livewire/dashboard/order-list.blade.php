@@ -101,7 +101,11 @@
     </div>
   @else
     <div>
-      <h4 class="text-light text-center"> No order yet please make an order 😜 </h4>
+      @if (Auth::user()->role_id == 2)
+        <h4 class="text-light text-center"> No order yet please make an order 😜 </h4>
+      @else
+        <h4 class="text-light text-center"> No orders yet 😢 </h4>
+      @endif
     </div>
   @endif
   <hr class="my-5">
