@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResetPassword;
 use App\Http\Livewire\Auth\ForgetPassword;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
@@ -32,7 +33,14 @@ Route::get('order/{orderId}', OrderDetail::class)->middleware('auth');
 
 Route::get('login', Login::class)->name('login')->middleware('guest');
 Route::get('register', Register::class)->name('register')->middleware('guest');
-Route::get('forget-password', ForgetPassword::class)->name('forget.password')->middleware('guest');
+
+// Forgot Password
+// Route::get('forgot-password', ForgetPassword::class)->name('password.request')->middleware('guest');
+Route::get('forgot-password', [ResetPassword::class, 'index'])->name('password.request')->middleware('guest');
+Route::post('forgot-password', [ResetPassword::class, 'sendLink']);
+
+Route::get('/reset-password/{token}', [ResetPassword::class, 'showForm'])->name('password.reset')->middleware('guest');
+Route::post('/reset-password', [ResetPassword::class, 'resetPassword'])->middleware('guest')->name('password.update');
 
 Route::get('{role:name}', UserIndex::class)->middleware('auth');
 Route::get('{role:name}/{user:username}/edit', UserEdit::class)->middleware('auth');

@@ -25,6 +25,10 @@
             </div>
           @endif
 
+          @if (session()->has('status'))
+            <div class="alert alert-success">{{ session('status') }}</div>
+          @endif
+
           <form wire:submit.prevent="authCheck">
             <div class="mb-3">
               <label for="email" class="form-label">Email or Username</label>
@@ -38,7 +42,7 @@
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">
                 <label class="form-label" for="password">Password</label>
-                <a href="{{ route('forget.password') }}">
+                <a href="{{ route('password.request') }}">
                   <small class="color-primary">Forgot Password?</small>
                 </a>
               </div>

@@ -16,14 +16,21 @@
           <!-- /Logo -->
           <h4 class="mb-2">Forgot Password? 🔒</h4>
           <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
-          <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+
+          <form wire:submit.prevent='sendLink()'>
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email"
-                autofocus />
+              <input wire:model='email' type="text" name="email"
+                class="form-control @error('email') is-invalid @enderror" id="email"
+                placeholder="Enter your email" />
+              @error('email')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
             </div>
-            <button class="btn btn-primary d-grid w-100 color-primary-bg color-primary-outline">Send Reset Link</button>
+            <button type="submit" class="btn btn-primary d-grid w-100 color-primary-bg color-primary-outline">Send
+              Reset Link</button>
           </form>
+
           <div class="text-center">
             <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center color-primary">
               <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
