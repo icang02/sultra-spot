@@ -63,7 +63,6 @@
 
       <div class="px-4 py-1">
         {{ $users->onEachSide(0.5)->withQueryString()->links() }}
-        {{-- {{ $users->onEachSide(0.5)->withQueryString()->links('vendor.pagination.bootstrap-5') }} --}}
       </div>
     </div>
   </div>

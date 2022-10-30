@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Models\TourPlace;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,11 +15,10 @@ class Wisata extends Component
     public function mount()
     {
         $role_id = auth()->user()->role_id;
-        $this->allWisata = TourPlace::all();
         if ($role_id == 2) {
             $this->allWisata = TourPlace::all();
         } elseif ($role_id == 3) {
-            $this->wisata = TourPlace::where('id', auth()->user()->id)->get();
+            $this->wisata = TourPlace::find(auth()->user()->id);
         }
     }
 
