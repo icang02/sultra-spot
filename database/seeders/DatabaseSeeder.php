@@ -116,13 +116,13 @@ class DatabaseSeeder extends Seeder
             'role_id' => 3,
             'tour_place_id' => 49,
         ]);
-        // User::factory()->create([
-        //     'name' => 'Yayat',
-        //     'username' => Str::slug('yayat'),
-        //     'email' => 'auliyarahman1904@gmail.com',
-        //     'password' => bcrypt('password'),
-        //     'role_id' => 2,
-        // ]);
+        User::factory()->create([
+            'name' => 'Yayat',
+            'username' => Str::slug('yayat'),
+            'email' => 'auliyarahman1904@gmail.com',
+            'password' => bcrypt('password'),
+            'role_id' => 2,
+        ]);
 
         // DATA DUMMY WISATA
         TourPlace::create([   // 1
