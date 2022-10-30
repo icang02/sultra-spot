@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dashboard\Components;
 
 use App\Models\PengelolaOrder;
+use App\Models\User;
 use App\Models\UserOrder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -25,7 +26,10 @@ class Navbar extends Component
 
     public function logout()
     {
+        $userId = auth()->user()->id;
         Auth::logout();
+        User::find($userId)->update(['remember_token' => null]);
+
         redirect()->route('login');
     }
 

@@ -7,7 +7,10 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public $email, $password, $username;
+    public $email;
+    public $password;
+    public $username;
+    public $remember;
 
     public function rules()
     {
@@ -21,7 +24,7 @@ class Login extends Component
     {
         $this->validate();
 
-        $auth = Auth::attempt(['email' => $this->email, 'password' => $this->password]);
+        $auth = Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember);
 
         if ($auth) {
             return redirect()->route('dashboard');
