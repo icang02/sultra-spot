@@ -93,7 +93,7 @@
           <div class="card">
             <div class="card-body">
               <h5><i class="bx bxs-map-pin me-1"></i> MAPS</h5>
-              <hr><img class="img-fluid" src="http://127.0.0.1:8000/sneat/img/maps/maps.png" alt="Image">
+              <hr><img class="img-fluid" src="{{ asset('sneat/img/maps/maps.png') }}" alt="Image">
               <div class="d-grid mt-2"><a href="{{ $wisata->maps }}" target="_blank" class="btn btn-primary"><i
                     class="bx bx-paper-plane me-1"></i> Open Direction</a></div>
               <hr class="my-3">
