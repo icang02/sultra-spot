@@ -59,6 +59,8 @@
               <hr class="my-3"><img class="img-fluid" src="{{ $wisata->image }}" alt="Image">
               <div class="mt-3"> {{ $wisata->description }} </div>
               <hr class="my-4">
+              Camera rental is : <span class="fw-bold"> {{ $wisata->rental == 1 ? 'Available' : 'Not available' }}
+              </span>
 
               @if (auth()->user()->role_id == 2)
                 <form wire:submit.prevent="submitToOrder(41)">

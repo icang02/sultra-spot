@@ -19,14 +19,16 @@
 
     {{-- Icon Cart --}}
     <ul class="navbar-nav flex-row align-items-center ms-auto">
-      <li class="nav-item lh-1 me-3">
-        <a class="d-flex align-items-center fw-bold color-primary" href="{{ route('orderList') }}">
-          Order
-          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20 ms-1">
-            {{ $orderCount }}
-          </span>
-        </a>
-      </li>
+      @if (auth()->user()->role_id !== 1)
+        <li class="nav-item lh-1 me-3">
+          <a class="d-flex align-items-center fw-bold color-primary" href="{{ route('orderList') }}">
+            Order
+            <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20 ms-1">
+              {{ $orderCount }}
+            </span>
+          </a>
+        </li>
+      @endif
 
       <!-- User -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">

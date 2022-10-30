@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 class WisataEdit extends Component
 {
     use WithFileUploads;
+    public $wisata;
     public $placeId;
     public $name;
     public $city;
@@ -22,21 +23,28 @@ class WisataEdit extends Component
     public $imageId;
     public $maps;
 
+    public $imageNew;
+    public $rentalOld;
+
     public function mount($id)
     {
-        $wisata = TourPlace::find($id);
+        $this->wisata = TourPlace::find($id);
         $this->placeId = $id;
-        $this->name = $wisata->name;
-        $this->city = $wisata->city;
-        $this->address = $wisata->address;
-        $this->description = $wisata->description;
-        $this->telp = $wisata->telp;
-        $this->price = $wisata->price;
-        $this->ticket_stock = $wisata->ticket_stock;
-        $this->rental = $wisata->rental;
-        $this->image = $wisata->image;
-        $this->imageId = $wisata->image_id;
-        $this->maps = $wisata->maps;
+
+        $this->name = $this->wisata->name;
+        $this->city = $this->wisata->city;
+        $this->address = $this->wisata->address;
+        $this->description = $this->wisata->description;
+        $this->telp = $this->wisata->telp;
+        $this->price = $this->wisata->price;
+        $this->ticket_stock = $this->wisata->ticket_stock;
+        $this->rentalOld = $this->wisata->rental;
+        $this->maps = $this->wisata->maps;
+
+        $this->rental = $this->wisata->rental;
+
+        $this->imageNew = $this->wisata->image;
+        $this->imageId = $this->wisata->image_id;
     }
 
     public function updateData()
@@ -53,23 +61,27 @@ class WisataEdit extends Component
             'maps' => 'required',
         ];
 
-        dd($this->imageId);
-        if ($this->image != $image) $rules['image'] = 'image|max:2048';
-
+        if ($this->image !== null) {
+            $rules['image'] = 'image|max:2048';
+        }
         $this->validate($rules);
 
-        if ($this->image != $image) {
+        $image = $this->imageNew;
+        $imageId = $this->imageId;
+        if ($this->image !== null) {
             $image = cloudinary()->upload($this->image->getRealPath(), [
                 'folder' => 'wisata'
             ])->getSecurePath();
+
+            cloudinary()->destroy($this->imageId);
             $imageId = cloudinary()->getPublicId($image);
         }
 
         TourPlace::find($this->placeId)->update([
-            'name' => $this->name,
-            'city' => $this->city,
-            'address' => $this->address,
-            'description' => $this->description,
+            'name' => str()->title($this->name),
+            'city' => str()->title($this->city),
+            'address' => str()->title($this->address),
+            'description' => ucfirst($this->description),
             'telp' => $this->telp,
             'price' => $this->price,
             'ticket_stock' => $this->ticket_stock,
@@ -79,39 +91,27 @@ class WisataEdit extends Component
             'maps' => $this->maps,
         ]);
 
-        return redirect()->route('wisata')->with('success', 'Added data successfully.');
-
-        // dd(
-        //     $this->name,
-        //     $this->city,
-        //     $this->address,
-        //     $this->telp,
-        //     $this->price,
-        //     $this->ticket_stock,
-        //     $this->rental,
-        //     $this->image,
-        //     $this->maps,
-        // );
+        return redirect()->route('wisata')->with('success', 'Updated data successfully.');
     }
 
     public function resetForm()
     {
-        $this->name = '';
-        $this->city = '';
-        $this->address = '';
-        $this->description = '';
-        $this->telp = '';
-        $this->price = '';
-        $this->ticket_stock = '';
-        $this->rental = '';
-        $this->image = '';
-        $this->maps = '';
+        $this->name = $this->wisata->name;
+        $this->city = $this->wisata->city;
+        $this->address = $this->wisata->address;
+        $this->description = $this->wisata->description;
+        $this->telp = $this->wisata->telp;
+        $this->price = $this->wisata->price;
+        $this->ticket_stock = $this->wisata->ticket_stock;
+        $this->rental = $this->wisata->rental;
+        $this->image = null;
+        $this->maps = $this->wisata->maps;
     }
 
     public function render()
     {
         return view('livewire.dashboard.wisata.wisata-edit')
-            ->extends('layouts.dashboard', ['title' => 'edit'])
+            ->extends('layouts.dashboard', ['title' => 'Edit'])
             ->section('main-content');
     }
 }

@@ -56,9 +56,9 @@
               <div class="mb-3 col-md-4">
                 <label for="rental" class="form-label">Camera Rental</label>
                 <select wire:model='rental' class="form-select @error('rental') is-invalid @enderror">
-                  <option>Select menu</option>
-                  <option {{ $rental !== 1 ?: 'selected' }} value="1">Available</option>
-                  <option {{ $rental !== 0 ?: 'selected' }} value="0">Not available</option>
+                  <option value="">Select menu</option>
+                  <option {{ $rentalOld !== 1 ?: 'selected' }} value="1">Available</option>
+                  <option {{ $rentalOld !== 0 ?: 'selected' }} value="0">Not available</option>
                 </select>
               </div>
 
@@ -66,7 +66,12 @@
                 <label for="image" class="form-label">Upload Photos Place</label>
                 <input wire:model='image' type="file" class="form-control @error('image') is-invalid @enderror"
                   id="image">
+
+                @error('image')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </div>
+
               <div class="mb-3 col-md-6">
                 <label for="maps" class="form-label">Maps Link</label>
                 <input wire:model='maps' type="url" class="form-control @error('maps') is-invalid @enderror"

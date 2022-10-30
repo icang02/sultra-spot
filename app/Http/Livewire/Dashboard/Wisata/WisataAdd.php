@@ -44,10 +44,10 @@ class WisataAdd extends Component
 
         TourPlace::create([
             'id' => auth()->user()->id,
-            'name' => $this->name,
-            'city' => $this->city,
-            'address' => $this->address,
-            'description' => $this->description,
+            'name' => str()->title($this->name),
+            'city' => str()->title($this->city),
+            'address' => str()->title($this->address),
+            'description' => ucfirst($this->description),
             'telp' => $this->telp,
             'price' => $this->price,
             'ticket_stock' => $this->ticket_stock,
@@ -58,18 +58,6 @@ class WisataAdd extends Component
         ]);
 
         return redirect()->route('wisata')->with('success', 'Added data successfully.');
-
-        // dd(
-        //     $this->name,
-        //     $this->city,
-        //     $this->address,
-        //     $this->telp,
-        //     $this->price,
-        //     $this->ticket_stock,
-        //     $this->rental,
-        //     $this->image,
-        //     $this->maps,
-        // );
     }
 
     public function resetForm()
