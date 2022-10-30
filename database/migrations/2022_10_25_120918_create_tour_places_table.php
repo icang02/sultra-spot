@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('city', 50);
             $table->string('address');
-            $table->string('description');
+            $table->text('description');
             $table->unsignedSmallInteger('ticket_stock');
             $table->unsignedInteger('price');
             $table->string('telp');
