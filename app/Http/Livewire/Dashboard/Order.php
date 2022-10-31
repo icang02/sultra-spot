@@ -75,7 +75,7 @@ class Order extends Component
                 'showConfirmButton' => false,
             ]);
 
-            return redirect()->route('orderList');
+            return redirect()->route('order.success');
         }
     }
 

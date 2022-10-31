@@ -16,6 +16,7 @@ use App\Http\Livewire\Dashboard\Wisata\WisataAdd;
 use App\Http\Livewire\Dashboard\Wisata\WisataEdit;
 use App\Http\Livewire\Dashboard\WisataDetail;
 use App\Http\Livewire\Home\Index as HomeIndex;
+use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeIndex::class)->name('home')->middleware('guest');
@@ -35,6 +36,11 @@ Route::get('wisata-edit/{id}', WisataEdit::class)->middleware('auth')->name('wis
 
 Route::get('order', OrderList::class)->middleware('auth')->name('orderList');
 Route::get('order/{orderId}', OrderDetail::class)->middleware('auth');
+Route::get('order-success', function () {
+  return view('page-order-success', [
+    'title' => 'Order Success',
+  ]);
+})->can('pengunjung')->middleware('auth')->name('order.success');
 
 Route::get('login', Login::class)->name('login')->middleware('guest');
 Route::get('register', Register::class)->name('register')->middleware('guest');

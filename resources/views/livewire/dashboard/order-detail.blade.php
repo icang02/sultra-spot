@@ -4,8 +4,7 @@
     <div class="col-md-7 mb-md-0 mb-4">
       <div class="card">
         <h5 class="card-header" wire:click="clickMe">No. Order : {{ $order->no_order }}</h5>
-        <div class="card-body"><img src="{{ asset('sneat/img/wisata/' . $order->tour_place->image) }}" alt="Image"
-            class="img-fluid">
+        <div class="card-body"><img src="{{ $order->tour_place->image }}" alt="Image" class="img-fluid">
           <div class="row mt-4">
             <div class="col-md-6 col-6">
               <div>

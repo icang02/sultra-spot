@@ -20,7 +20,7 @@
             <tbody>
               <tr>
                 <td>
-                  <img src="{{ asset('sneat/img/wisata/thumb/' . $image) }}" alt="thumbnail.jpg" width="110">
+                  <img src="{{ $image }}" alt="thumbnail.jpg" width="110">
                 </td>
                 <td>
                   <span class="fw-bold">
