@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Models\PengelolaOrder;
+use App\Models\TourPlace;
 use App\Models\UserOrder;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -11,7 +12,10 @@ class OrderDetail extends Component
 {
     use WithFileUploads;
 
-    protected $listeners = ['action', 'render'];
+    protected $listeners = [
+        'action', 'render',
+        'orderSuccess' => 'orderSuccessHandler'
+    ];
     public $order;
     public $image;
 
@@ -21,43 +25,68 @@ class OrderDetail extends Component
     {
         $this->order = UserOrder::find($orderId);
 
-        $order = $this->order;
-        $amount = $order->total_payment;
+        if ($this->order->status == 'pending') {
+            $order = $this->order;
+            $amount = $order->total_payment;
 
-        $customerDetails = [
-            'first_name' => auth()->user()->name,
-            'last_name' => null,
-            'email' => auth()->user()->email,
-            'phone' => null,
-            'address' => null,
-            'city' => null,
-            'postal_code' => null,
-        ];
+            $item_details = [
+                [
+                    'id' => $order->no_order,
+                    'price' => $order->tour_place->price,
+                    'quantity' => $order->quantity,
+                    'name' => $order->tour_place->name,
+                ],
+            ];
 
-        $transactionDetails = [
-            'order_id' => $order->no_order,
-            'gross_amount' => $amount
-        ];
+            $customerDetails = [
+                'first_name' => auth()->user()->name,
+                'last_name' => null,
+                'email' => auth()->user()->email,
+                'phone' => null,
+                'address' => null,
+                'city' => null,
+                'postal_code' => null,
+            ];
 
-        $payload = [
-            'transaction_details' => $transactionDetails,
-            'customer_details' => $customerDetails,
-        ];
+            $transactionDetails = [
+                'order_id' => $order->no_order,
+                'gross_amount' => $amount
+            ];
 
-        // dd($transactionDetails);
+            $payload = [
+                'transaction_details' => $transactionDetails,
+                'customer_details' => $customerDetails,
+                'item_details' => $item_details,
+            ];
 
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config('services.midtrans.serverKey');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = config('services.midtrans.isProduction');
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = config('services.midtrans.isSanitized');
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = config('services.midtrans.is3ds');
+            // dd($transactionDetails);
 
-        $snapToken = \Midtrans\Snap::getSnapToken($payload);
+            // Set your Merchant Server Key
+            \Midtrans\Config::$serverKey = config('services.midtrans.serverKey');
+            // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+            \Midtrans\Config::$isProduction = config('services.midtrans.isProduction');
+            // Set sanitization on (default)
+            \Midtrans\Config::$isSanitized = config('services.midtrans.isSanitized');
+            // Set 3DS transaction for credit card to true
+            \Midtrans\Config::$is3ds = config('services.midtrans.is3ds');
 
-        $this->snapToken = $snapToken;
+            $snapToken = \Midtrans\Snap::getSnapToken($payload);
+
+            $this->snapToken = $snapToken;
+        }
+    }
+
+    public function orderSuccessHandler()
+    {
+        $userOrder = UserOrder::find($this->order->id)->update(['status' => 'selesai']);
+        $pengelolaOrder = PengelolaOrder::find($this->order->id)->update(['status' => 'selesai']);
+        if ($userOrder && $pengelolaOrder) {
+            TourPlace::find($this->order->tour_place_id)->update([
+                'ticket_stock' => $this->order->tour_place->ticket_stock - $this->order->quantity,
+            ]);
+
+            redirect()->route('orderList');
+        }
     }
 
     public function action()

@@ -37,15 +37,20 @@
           </div>
           <hr class="mb-4">
 
-          <button wire:click="$emit('payment', '{{ $snapToken }}')" class="btn btn-primary mb-4">Pay Now</button>
+          @if ($order->status !== 'pending')
+            <button class="btn btn-info">Print ticket</button>
+          @else
+            <button wire:click="$emit('payment', '{{ $snapToken }}')" class="btn btn-primary mb-4">Pay Now</button>
+          @endif
+
           @push('script')
             <script>
               window.livewire.on('payment', function(snapToken) {
                 snap.pay(snapToken, {
                   // Optional
                   onSuccess: function(result) {
-                    // window.livewire.emit('decrementTicketStock');
-                    window.location.href = "/order";
+                    window.livewire.emit('orderSuccess');
+                    // window.location.href = "/order";
                   },
                   // Optional
                   onPending: function(result) {
