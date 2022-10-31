@@ -24,7 +24,6 @@ class WisataEdit extends Component
     public $maps;
 
     public $imageNew;
-    // public $rentalOld;
 
     public function mount($id)
     {
@@ -38,10 +37,8 @@ class WisataEdit extends Component
         $this->telp = $this->wisata->telp;
         $this->price = $this->wisata->price;
         $this->ticket_stock = $this->wisata->ticket_stock;
-        // $this->rentalOld = $this->wisata->rental;
-        $this->maps = $this->wisata->maps;
-
         $this->rental = $this->wisata->rental;
+        $this->maps = $this->wisata->maps;
 
         $this->imageNew = $this->wisata->image;
         $this->imageId = $this->wisata->image_id;
@@ -73,7 +70,8 @@ class WisataEdit extends Component
                 'folder' => 'wisata'
             ])->getSecurePath();
 
-            cloudinary()->destroy($this->imageId);
+            if ($imageId !== null)
+                cloudinary()->destroy($this->imageId);
             $imageId = cloudinary()->getPublicId($image);
         }
 

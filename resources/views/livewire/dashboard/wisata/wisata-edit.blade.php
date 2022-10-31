@@ -22,8 +22,8 @@
 
               <div class="mb-3 col-md-6">
                 <label for="city" class="form-label">City</label>
-                <input wire:model='city' class="form-control @error('city') is-invalid @enderror" type="text"
-                  id="city">
+                <input wire:model='city' value="{{ old('city', $city) }}"
+                  class="form-control @error('city') is-invalid @enderror" type="text" id="city">
                 @error('city')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -31,8 +31,8 @@
 
               <div class="mb-3 col-md-6">
                 <label for="address" class="form-label">Address</label>
-                <input wire:model="address" class="form-control @error('address') is-invalid @enderror" type="text"
-                  id="address">
+                <input wire:model="address" value="{{ old('address', $address) }}"
+                  class="form-control @error('address') is-invalid @enderror" type="text" id="address">
                 @error('address')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -40,7 +40,8 @@
 
               <div class="mb-3 col-md-6">
                 <label for="phone" class="form-label">Phone</label>
-                <input wire:model='telp' class="form-control @error('telp') is-invalid @enderror" id="phone">
+                <input wire:model='telp' value="{{ old('telp', $telp) }}"
+                  class="form-control @error('telp') is-invalid @enderror" id="phone">
                 @error('telp')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -49,7 +50,7 @@
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea wire:model="description" class="form-control @error('description') is-invalid @enderror" id="description"
-                  rows="3"></textarea>
+                  rows="3">{{ $description }}</textarea>
                 @error('description')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -57,8 +58,8 @@
 
               <div class="mb-3 col-md-4">
                 <label for="price" class="form-label">Ticket Price</label>
-                <input wire:model='price' type="number" class="form-control @error('price') is-invalid @enderror"
-                  id="price">
+                <input wire:model='price' value="{{ old('price', $price) }}" type="number"
+                  class="form-control @error('price') is-invalid @enderror" id="price">
                 @error('price')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -66,7 +67,7 @@
 
               <div class="mb-3 col-md-4">
                 <label for="ticket_stock" class="form-label">Stock</label>
-                <input wire:model='ticket_stock' type="number"
+                <input wire:model='ticket_stock' value="{{ old('ticket_stock', $ticket_stock) }}" type="number"
                   class="form-control @error('ticket_stock') is-invalid @enderror" id="ticket_stock">
                 @error('ticket_stock')
                   <div class="invalid-feedback">{{ $message }}</div>
@@ -77,10 +78,8 @@
                 <label for="rental" class="form-label">Camera Rental</label>
                 <select wire:model='rental' class="form-select @error('rental') is-invalid @enderror">
                   <option value="">Select menu</option>
-                  <option value="1">Available</option>
-                  <option value="0">Not available</option>
-                  {{-- <option {{ $rentalOld !== 1 ?: 'selected' }} value="1">Available</option>
-                  <option {{ $rentalOld !== 0 ?: 'selected' }} value="0">Not available</option> --}}
+                  <option value="1" {{ $rental == 1 ? 'selected' : '' }}>Available</option>
+                  <option value="0" {{ $rental == 0 ? 'selected' : '' }}>Not available</option>
                 </select>
                 @error('rental')
                   <div class="invalid-feedback">{{ $message }}</div>
@@ -98,8 +97,9 @@
 
               <div class="mb-3 col-md-6">
                 <label for="maps" class="form-label">Maps Link</label>
-                <input wire:model='maps' type="url" class="form-control @error('maps') is-invalid @enderror"
-                  id="maps" placeholder="https://goo.gl/maps">
+                <input wire:model='maps' value="{{ old('maps', $maps) }}" type="url"
+                  class="form-control @error('maps') is-invalid @enderror" id="maps"
+                  placeholder="https://goo.gl/maps">
                 @error('maps')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -110,7 +110,8 @@
               <button type="submit" class="btn btn-primary me-2 color-primary-bg color-primary-outline"
                 wire:loading.class="disabled">Save
                 changes</button>
-              <button wire:click="resetForm" type="reset" class="btn btn-outline-secondary">Cancel</button>
+              <button wire:click="resetForm" wire:loading.class="disabled" type="reset"
+                class="btn btn-outline-secondary">Cancel</button>
             </div>
           </div>
         </div>

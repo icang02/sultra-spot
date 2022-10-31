@@ -6,8 +6,7 @@
         <h5 class="card-header"> {{ $wisata->name }} </h5>
         <div class="card-body">
           <h6 class="text-light"><i class="bx bx-map me-1"></i> {{ $wisata->address }}</h6>
-          <hr class="my-3"><img class="img-fluid" src="{{ asset('sneat/img/wisata/' . $wisata->image) }}"
-            alt="Image">
+          <hr class="my-3"><img class="img-fluid" src="{{ $wisata->image }}" alt="Image">
           <div class="mt-3"> {{ $wisata->description }} </div>
           <hr class="my-4">
 

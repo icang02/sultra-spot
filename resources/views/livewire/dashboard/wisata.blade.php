@@ -33,10 +33,11 @@
     @if (Auth::user()->role_id == 2)
       @foreach ($allWisata as $wisata)
         <div class="col-md-6 mb-2">
-          <a class="card mb-3 cursor-pointer shadow text-secondary" href="wisata/{{ $wisata->id }}">
+          <a class="card mb-3 cursor-pointer shadow text-secondary" href="{{ url('wisata/' . $wisata->id) }}">
             <div class="row g-0">
-              <div class="col-md-4"><img class="card-img card-img-left"
-                  src="{{ asset('sneat/img/wisata/thumb/' . $wisata->image) }}" alt="Card image" width="1000"></div>
+              <div class="col-md-4 bg-wisata" style="background-image: url({{ $wisata->image }});">
+              </div>
+
               <div class="col-md-8">
                 <div class="card-body">
                   <h5 class="card-title"> {{ $wisata->name }} </h5>

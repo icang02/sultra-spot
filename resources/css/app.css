@@ -13,3 +13,16 @@
 .swal2-container {
   z-index: 2000 !important;
 }
+
+.bg-wisata {
+  background-size: cover;
+  background-position: left;
+  border-radius: 6px 0px 0px 6px;
+}
+
+@media only screen and (max-width: 600px) {
+  .bg-wisata {
+    min-height: 190px;
+    border-radius: 6px 6px 0px 0px;
+  }
+}

@@ -134,7 +134,8 @@ class DatabaseSeeder extends Seeder
             'ticket_stock' => rand(0, 100),
             'price' => 15000,
             'telp' => fake()->phoneNumber(),
-            'image' => 'tamborasi.jpg',
+            'image' => 'https://res.cloudinary.com/dvbn5fow8/image/upload/v1667191849/wisata/mk8fzbjxwk5cp1fk9t61.jpg',
+            'image_id' => 'wisata/mk8fzbjxwk5cp1fk9t61',
             'maps' => 'https://goo.gl/maps/NVV5tisoqHmWowuB9',
             'rental' => rand(0, 1),
         ]);
@@ -147,7 +148,8 @@ class DatabaseSeeder extends Seeder
             'ticket_stock' => rand(0, 100),
             'price' => 15000,
             'telp' => fake()->phoneNumber(),
-            'image' => 'danau-biru.jpg',
+            'image' => 'https://res.cloudinary.com/dvbn5fow8/image/upload/v1667191891/wisata/aeh9u3mq7r5hjh0hrnag.jpg',
+            'image_id' => 'wisata/aeh9u3mq7r5hjh0hrnag',
             'maps' => 'https://goo.gl/maps/QmdbSDEwg79rN2uS7',
             'rental' => rand(0, 1),
         ]);
@@ -160,7 +162,8 @@ class DatabaseSeeder extends Seeder
             'ticket_stock' => rand(0, 100),
             'price' => 15000,
             'telp' => fake()->phoneNumber(),
-            'image' => 'pulau-bokori.jpg',
+            'image' => 'https://res.cloudinary.com/dvbn5fow8/image/upload/v1667191929/wisata/dmtpovtygeqcuingovrf.jpg',
+            'image_id' => 'wisata/dmtpovtygeqcuingovrf',
             'maps' => 'https://goo.gl/maps/N1nGsGDR8SCHrmFn8',
             'rental' => rand(0, 1),
         ]);
@@ -173,7 +176,8 @@ class DatabaseSeeder extends Seeder
             'ticket_stock' => rand(0, 100),
             'price' => 15000,
             'telp' => fake()->phoneNumber(),
-            'image' => 'pantai-nambo.jpg',
+            'image' => 'https://res.cloudinary.com/dvbn5fow8/image/upload/v1667191955/wisata/lz1tovlbnlsecclfbwpz.jpg',
+            'image_id' => 'wisata/lz1tovlbnlsecclfbwpz',
             'maps' => 'https://goo.gl/maps/LKgKe9k2UeUuT6LNA',
             'rental' => rand(0, 1),
         ]);
@@ -186,7 +190,8 @@ class DatabaseSeeder extends Seeder
             'ticket_stock' => rand(0, 100),
             'price' => 5000,
             'telp' => fake()->phoneNumber(),
-            'image' => 'pantai-nirwana.jpg',
+            'image' => 'https://res.cloudinary.com/dvbn5fow8/image/upload/v1667191989/wisata/bwzum4iqvtdetkfl6cfz.jpg',
+            'image_id' => 'wisata/bwzum4iqvtdetkfl6cfz',
             'maps' => 'https://goo.gl/maps/ZCNXpHJE3Pr8oyWW6',
             'rental' => rand(0, 1),
         ]);
@@ -199,7 +204,8 @@ class DatabaseSeeder extends Seeder
             'ticket_stock' => rand(0, 100),
             'price' => 15000,
             'telp' => fake()->phoneNumber(),
-            'image' => 'taman-laut-wakatobi.jpg',
+            'image' => 'https://res.cloudinary.com/dvbn5fow8/image/upload/v1667192043/wisata/mgyo9ydn6azfrfoe0tg6.jpg',
+            'image_id' => 'wisata/mgyo9ydn6azfrfoe0tg6',
             'maps' => 'https://goo.gl/maps/G38kLQNvd3BsTQsv7',
             'rental' => rand(0, 1),
         ]);
@@ -212,7 +218,8 @@ class DatabaseSeeder extends Seeder
             'ticket_stock' => rand(0, 100),
             'price' => 15000,
             'telp' => fake()->phoneNumber(),
-            'image' => 'goa-moko.jpg',
+            'image' => 'https://res.cloudinary.com/dvbn5fow8/image/upload/v1667192075/wisata/k1xrbshovhbmwjxxxwze.jpg',
+            'image_id' => 'wisata/k1xrbshovhbmwjxxxwze',
             'maps' => 'https://goo.gl/maps/MVBz8LpTvvP9KGmK6',
             'rental' => rand(0, 1),
         ]);
@@ -225,7 +232,8 @@ class DatabaseSeeder extends Seeder
             'ticket_stock' => rand(0, 100),
             'price' => 15000,
             'telp' => fake()->phoneNumber(),
-            'image' => 'labengki.jpeg',
+            'image' => 'https://res.cloudinary.com/dvbn5fow8/image/upload/v1667192131/wisata/wfpvofxesf2wh53ixiss.jpg',
+            'image_id' => 'wisata/wfpvofxesf2wh53ixiss',
             'maps' => 'https://goo.gl/maps/XRrSXMa27hhgcgZe7',
             'rental' => rand(0, 1),
         ]);
