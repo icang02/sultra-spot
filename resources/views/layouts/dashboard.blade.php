@@ -107,6 +107,9 @@
     <!-- / Layout wrapper -->
   @endauth
 
+  {{-- Midtrans --}}
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
   @livewireScripts
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->

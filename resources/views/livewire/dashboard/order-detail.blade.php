@@ -37,7 +37,31 @@
           </div>
           <hr class="mb-4">
 
-          @if ($order->image_tf == 'nota.jpg' && Auth()->user()->role_id == 2 && $order->status == 'pending')
+          <button wire:click="$emit('payment', '{{ $snapToken }}')" class="btn btn-primary mb-4">Pay Now</button>
+          @push('script')
+            <script>
+              window.livewire.on('payment', function(snapToken) {
+                snap.pay(snapToken, {
+                  // Optional
+                  onSuccess: function(result) {
+                    // window.livewire.emit('decrementTicketStock');
+                    window.location.href = "/order";
+                  },
+                  // Optional
+                  onPending: function(result) {
+                    location.reload();
+                  },
+                  // Optional
+                  onError: function(result) {
+                    location.reload();
+                  }
+                });
+              });
+            </script>
+          @endpush
+
+          {{-- @if ($order->image_tf == 'nota.jpg' && Auth()->user()->role_id == 2 && $order->status == 'pending')
+
             <form wire:submit.prevent="uploadImage">
               <h6 class="fw-bold">Evidence of transfer</h6>
               <div class="input-group mt-3">
@@ -55,7 +79,6 @@
                 data-bs-whatever="@mdo">See evidence of transfer</button>
             @endif
 
-            {{-- Modal Start --}}
             <div wire:ignore.self class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
               <div class="modal-dialog">
@@ -74,8 +97,7 @@
                 </div>
               </div>
             </div>
-            {{-- Modal End --}}
-          @endif
+          @endif --}}
 
         </div>
       </div>
