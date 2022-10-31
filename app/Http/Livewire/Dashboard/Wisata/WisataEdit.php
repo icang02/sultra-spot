@@ -24,7 +24,7 @@ class WisataEdit extends Component
     public $maps;
 
     public $imageNew;
-    public $rentalOld;
+    // public $rentalOld;
 
     public function mount($id)
     {
@@ -38,7 +38,7 @@ class WisataEdit extends Component
         $this->telp = $this->wisata->telp;
         $this->price = $this->wisata->price;
         $this->ticket_stock = $this->wisata->ticket_stock;
-        $this->rentalOld = $this->wisata->rental;
+        // $this->rentalOld = $this->wisata->rental;
         $this->maps = $this->wisata->maps;
 
         $this->rental = $this->wisata->rental;

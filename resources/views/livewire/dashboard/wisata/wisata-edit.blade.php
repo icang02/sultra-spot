@@ -77,8 +77,10 @@
                 <label for="rental" class="form-label">Camera Rental</label>
                 <select wire:model='rental' class="form-select @error('rental') is-invalid @enderror">
                   <option value="">Select menu</option>
-                  <option {{ $rentalOld !== 1 ?: 'selected' }} value="1">Available</option>
-                  <option {{ $rentalOld !== 0 ?: 'selected' }} value="0">Not available</option>
+                  <option value="1">Available</option>
+                  <option value="0">Not available</option>
+                  {{-- <option {{ $rentalOld !== 1 ?: 'selected' }} value="1">Available</option>
+                  <option {{ $rentalOld !== 0 ?: 'selected' }} value="0">Not available</option> --}}
                 </select>
                 @error('rental')
                   <div class="invalid-feedback">{{ $message }}</div>
