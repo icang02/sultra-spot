@@ -124,6 +124,8 @@ class DatabaseSeeder extends Seeder
             'role_id' => 2,
         ]);
 
+        User::factory(120)->create();
+
         // DATA DUMMY WISATA
         TourPlace::create([   // 1
             'id' => 41,

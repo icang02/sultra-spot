@@ -14,7 +14,7 @@ class Profile extends Component
     public $usernameDelete, $checkboxDeactive;
     public $user;
 
-    protected $listeners = ['delete'];
+    protected $listeners = ['action'];
 
     public function mount()
     {
@@ -100,7 +100,7 @@ class Profile extends Component
         ]);
     }
 
-    public function delete($userId)
+    public function action($userId)
     {
         $user = User::find($userId)->delete();
         return redirect()->route('login');
