@@ -58,8 +58,8 @@
           <div data-i18n="Analytics"> {{ Auth()->user()->role_id == 2 ? 'Wisata' : 'My Wisata' }} </div>
         </a>
       </li>
-      <li class="menu-item {{ request()->is('') ? 'active' : '' }}">
-        <a href="index.html" class="menu-link">
+      <li class="menu-item {{ request()->is('event*') ? 'active' : '' }}">
+        <a href="{{ route('event') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-crown"></i>
           <div data-i18n="Analytics"> {{ Auth()->user()->role_id == 2 ? 'Event' : 'My Event' }} </div>
         </a>
